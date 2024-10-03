@@ -10,7 +10,7 @@ Bienvenue dans notre projet de développement d'une plateforme de **réservation
 
 ### Technologies utilisées :
 - **Front-end** : HTML, CSS, JavaScript
-- **Back-end** : Node.js (ou autre si changé), avec gestion des bases de données MySQL ou PostgreSQL.
+- **Back-end** : Node.js avec Express.js, avec gestion des bases de données MySQL.
 - **API** : Amadeus pour l'intégration des informations sur les vols.
 
 ### Créé par :
