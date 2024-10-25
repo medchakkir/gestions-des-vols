@@ -27,7 +27,7 @@
 
 - **Frontend** : HTML, CSS, JavaScript
 - **Backend** : Node.js (Express.js)
-- **Base de Données** : MySQL
+- **Base de Données** : Postgres
 - **API** : Amadeus
 
 ### Membres de l'Équipe
