@@ -30,11 +30,11 @@
     
 2. **Cloner le dépôt** :
     ```sh
-    git clone https://github.com/momed-ali01/GestionDeVol_test.git
+    git clone https://github.com/momed-ali01/GestionDeVol.git
     ```
 3. **Installer les dépendances** :
     ```sh
-    cd GestionDeVol_test
+    cd GestionDeVol
     npm install
     ```
 4. **Configurer les variables d'environnement** :
