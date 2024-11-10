@@ -24,26 +24,38 @@
 
 ## Installation
 
-1. **Cloner le dépôt** :
+1. **Prérequis** :
+    - Installer [Node.js](https://nodejs.org/) (version 14 ou supérieure)
+    - Installer [PostgreSQL](https://www.postgresql.org/) et configurer une base de données
+    
+2. **Cloner le dépôt** :
     ```sh
-    git clone https://github.com/momed-ali01/GestionDeVol.git
+    git clone https://github.com/momed-ali01/GestionDeVol_test.git
     ```
-2. **Installer les dépendances** :
+3. **Installer les dépendances** :
     ```sh
-    cd GestionDeVol
+    cd GestionDeVol_test
     npm install
     ```
-3. **Configurer les variables d'environnement** :
+4. **Configurer les variables d'environnement** :
     - Renommez le fichier `.env.example` en `.env`.
     - Ouvrez le fichier `.env` et remplissez les valeurs nécessaires pour `DB_USER`, `DB_HOST`, `DB_NAME`, `DB_PASSWORD`, `DB_PORT`, etc.
     ```sh
     mv .env.example .env
     ```
-4. **Lancer l'application** :
+5. **Lancer l'application** :
     ```sh
     npm start
     ```
     - Accédez à l'application via votre navigateur à l'adresse `http://localhost:3000`.
+
+## Règles d'équipe pour le projet *VoyageFinder*
+
+1. **Réunions deux fois par semaine** :  
+   - **Jeudi après-midi** : On se répartit les tâches pour avancer sur le projet.  
+   - **Lundi après-midi** : On fait le point sur ce que chacun a fait pendant la semaine.
+
+2. Soyez **attentifs** et **concentrés**. On est là pour **avancer**, donc restons **focus** !
 
 ### Membres de l'Équipe
 
@@ -57,3 +69,7 @@
 ### Encadré par
 
 Mr. Yahya Galib
+
+## License
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
