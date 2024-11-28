@@ -1,0 +1,66 @@
+
+/* Register styles */
+.sign-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sign-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 10px;
+  width: 400px;
+  margin-top: 32px;
+}
+
+.sign-header h3 {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.sign-header p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sign-form .input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-form label {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.sign-form input {
+  padding: 10px;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 340px;
+}
+
+input[type="submit"] {
+  background-color: #003b95;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.sign-form p a {
+  color: #003b95;
+  text-decoration: underline;
+}
+
+.sign-form p a:hover {
+  color: #002366;
+}
