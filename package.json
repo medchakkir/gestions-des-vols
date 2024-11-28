@@ -1,5 +1,5 @@
 {
-  "name": "gestiondevol_test",
+  "name": "gestiondevol",
   "version": "1.0.0",
   "description": "Système de réservation de billets d'avion avec gestion de profil utilisateur.",
   "main": "server.js",
