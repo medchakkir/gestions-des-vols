@@ -1,0 +1,28 @@
+
+/* 404 page styles */
+main#error_page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#error_page .container {
+  text-align: center;
+}
+
+#error_page h1 {
+  font-size: 72px;
+  font-weight: 800;
+  color: #003b95;
+}
+
+#error_page p {
+  font-size: 24px;
+  font-weight: 400;
+}
+
+#error_page a {
+  color: #003b95;
+  text-decoration: underline;
+}
