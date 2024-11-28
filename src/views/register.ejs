@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="img/favicon.png"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/login-register.css">
+    <title>Travel - Register</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <nav class="navbar">
+          <div class="navbar-logo">Travel</div>
+        </nav>
+      </header>
+      <section class="sign-section">
+        <div class="sign-container">
+          <div class="sign-header">
+            <h3>S'inscrire maintenant</h3>
+            <p>Inscrivez-vous à Travel.com et accédez à nos services.</p>
+          </div>
+          <form class="sign-form">
+            <div class="input-container">
+              <label for="name">Nom Complet</label>
+              <input type="text" name="name" id="name" required />
+            </div>
+            <div class="input-container">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" required />
+            </div>
+            <div class="input-container">
+              <label for="password">Mot de Passe</label>
+              <input type="password" name="password" id="password" required />
+            </div>
+
+            <input type="submit" value="S'inscrire" />
+            <div>
+              <p>Déjà un compte? <a href="/login">Se connecter</a></p>
+              <!-- <p><a href="/">Retour à l'accueil</a></p> -->
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        console.log(data);
+        fetch("/users/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.error) {
+              Swal.fire({
+                title: "Something went wrong!",
+                text: data.error,
+                icon: "error",
+              });
+            } else {
+              Swal.fire({
+                title: "Registered Successfully!",
+                text: data.message,
+                icon: "success",
+              });
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
