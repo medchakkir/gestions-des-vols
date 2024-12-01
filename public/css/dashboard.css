@@ -1,0 +1,72 @@
+/* Dashboard styles */
+
+main {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  padding-top: 35px;
+  /* background-color: #0d1117; */
+}
+
+aside {
+  margin: 0 auto;
+}
+
+.img-container {
+  width: 300px;
+  /* height: 300px; */
+}
+
+.img-container .profile-img {
+  width: 100%;
+  height: 100%;
+  /* border-radius: 50%; */
+  /* object-fit: cover; */
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  margin-left: 20px;
+}
+
+.info-container .name {
+  /* color: #12375b; */
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.info-container .email {
+  font-size: 20px;
+  font-weight: 400;
+  color: #333;
+}
+
+.dashboard-overview {
+  width: 90%;
+}
+
+.dashboard-overview h2 {
+  font-size: 32px;
+  border-bottom: 1px solid #333;
+  /* font-weight: 500; */
+}
+
+.dashboard-overview .card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.dashboard-overview .card h3 {
+  font-size: 24px;
+  font-weight: 500;
+  color: #003b95;
+  margin-bottom: 10px;
+}
+
+.dashboard-overview .card p {
+  font-size: 16px;
+  color: #333333;
+}
