@@ -1,0 +1,23 @@
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+section {
+  background-color: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+section h2 {
+  color: #333;
+}
+
+section ul {
+  /* list-style: none; */
+  padding: 0 20px;
+}
