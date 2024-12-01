@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="img/favicon.png"
+      sizes="192x192"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/about.css" />
+    <title>Travel - About Us</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="navbar-logo">Travel</div>
+        <ul class="navbar-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+        <% if (userIsLoggedIn) { %>
+        <details>
+          <summary>
+            <i class="fas fa-user"></i>
+          </summary>
+          <ul>
+            <li><a href="/dashboard">Profile</a></li>
+            <li><a href="/logout">Signout</a></li>
+          </ul>
+        </details>
+        <% } else { %>
+        <div class="navbar-auth-buttons">
+          <a href="/login" class="auth-btn" id="btn-login">Sign in</a>
+          <a href="/register" class="auth-btn" id="btn-register">Register</a>
+        </div>
+        <% } %>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is to provide the best flight management services to our
+          customers.
+        </p>
+      </section>
+      <section>
+        <h2>Our Team</h2>
+        <p>
+          We have a dedicated team of professionals who are passionate about
+          aviation and customer service.
+        </p>
+      </section>
+      <section>
+        <h2>Our History</h2>
+        <p>
+          Founded in 2010, Travel.com has grown from a small startup to a leading provider of flight management services.
+        </p>
+      </section>
+      <section>
+        <h2>Our Values</h2>
+        <ul>
+          <li>Customer Satisfaction</li>
+          <li>Integrity</li>
+          <li>Innovation</li>
+          <li>Teamwork</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Contact Us</h2>
+        <p>
+          If you have any questions, feel free to
+          <a href="/contact">contact us</a>.
+        </p>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-logo">Travel.com</div>
+        <p>&copy; 2023 Travel.com | All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
