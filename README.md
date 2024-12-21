@@ -53,7 +53,7 @@
 5. **Création des tables de la base de donnée**
 
     ```sh
-    node src/config/db.js
+    npm run init-db
     ```
 
 6. **Lancer l'application** :
@@ -62,7 +62,7 @@
     npm run start:dev
     ```
 
-    - Accédez à l'application via votre navigateur à l'adresse `http://localhost:3000`.
+    - Accédez à l'application via votre navigateur à l'adresse `http://localhost:8080`.
 
 ### Membres de l'Équipe
 
