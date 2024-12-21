@@ -25,37 +25,44 @@
 ## Installation
 
 1. **Prérequis** :
-    - Installer [Node.js](https://nodejs.org/) (version 14 ou supérieure)
-    - Installer [PostgreSQL](https://www.postgresql.org/) et configurer une base de données
-    
+    - Installer [Git](https://git-scm.com/downloads)
+    - Installer [Node.js](https://nodejs.org/en/download/package-manager) (version 18 ou supérieure)
+    - Installer [PostgreSQL](https://www.postgresql.org/) (version 16.4 ou supérieure)
+
 2. **Cloner le dépôt** :
+
     ```sh
-    git clone https://github.com/momed-ali01/GestionDeVol.git
+    git clone https://github.com/momed-ali01/GestionDeVol_test.git 
     ```
+
 3. **Installer les dépendances** :
+
     ```sh
-    cd GestionDeVol
+    cd GestionDeVol_test
     npm install
     ```
+
 4. **Configurer les variables d'environnement** :
     - Renommez le fichier `.env.example` en `.env`.
     - Ouvrez le fichier `.env` et remplissez les valeurs nécessaires pour `DB_USER`, `DB_HOST`, `DB_NAME`, `DB_PASSWORD`, `DB_PORT`, etc.
+
     ```sh
     mv .env.example .env
     ```
-5. **Lancer l'application** :
+
+5. **Création des tables de la base de donnée**
+
     ```sh
-    npm start
+    node src/config/db.js
     ```
+
+6. **Lancer l'application** :
+
+    ```sh
+    npm run start:dev
+    ```
+
     - Accédez à l'application via votre navigateur à l'adresse `http://localhost:3000`.
-
-## Règles d'équipe pour le projet *VoyageFinder*
-
-1. **Réunions deux fois par semaine** :  
-   - **Jeudi après-midi** : On se répartit les tâches pour avancer sur le projet.  
-   - **Lundi après-midi** : On fait le point sur ce que chacun a fait pendant la semaine.
-
-2. Soyez **attentifs** et **concentrés**. On est là pour **avancer**, donc restons **focus** !
 
 ### Membres de l'Équipe
 
@@ -70,6 +77,4 @@
 
 Mr. Yahya Galib
 
-## License
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+![Free Palestine](https://github.com/said7388/developer-portfolio/assets/77630868/c0064908-cd5f-4751-a77c-eba90a62b55c)

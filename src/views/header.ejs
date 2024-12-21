@@ -1,0 +1,29 @@
+<header>
+  <nav class="navbar">
+    <div class="navbar-logo">Voyage</div>
+    <div class="navbar-toggle">
+      <i class="fa fa-bars"></i>
+    </div>
+    <ul class="navbar-links">
+      <% if (userIsLoggedIn) { %>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/dashboard">Réservé</a></li>
+      <li><a href="/booking">Réservation</a></li>
+      <% } else { %>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <% } %>
+    </ul>
+    <div class="navbar-auth-buttons">
+      <% if (userIsLoggedIn) { %>
+      <a href="/logout" class="auth-btn">Déconnexion</a>
+      <% } else { %>
+      <a href="/login" class="auth-btn">Se connecter</a>
+      <a href="/register" class="auth-btn">S'inscrire</a>
+      <% } %>
+    </div>
+  </nav>
+</header>

@@ -14,45 +14,20 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/contact.css">
-    <title>Travel - Contact Us</title>
+    <title>Travel - Contactez-nous</title>
   </head>
   <body>
+    <%- include('header.ejs') %>
     <main>
-      <header>
-        <nav class="navbar">
-          <div class="navbar-logo">Travel</div>
-          <ul class="navbar-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-          <% if (userIsLoggedIn) { %>
-          <details>
-            <summary>
-              <i class="fas fa-user"></i>
-            </summary>
-            <ul>
-              <li><a href="/dashboard">Profile</a></li>
-              <li><a href="/logout">Signout</a></li>
-            </ul>
-          </details>
-          <% } else { %>
-          <div class="navbar-auth-buttons">
-            <a href="/login" class="auth-btn" id="btn-login">Sign in</a>
-            <a href="/register" class="auth-btn" id="btn-register">Register</a>
-          </div>
-          <% } %>
-        </nav>
-      </header>
       <section class="contact-section">
         <div class="contact-container">
           <div class="contact-header">
-            <h3>Contact Us</h3>
-            <p>We'd love to hear from you! Please fill out the form below.</p>
+            <h3>Contactez-nous</h3>
+            <p>Nous serions ravis de vous entendre ! Veuillez remplir le formulaire ci-dessous.</p>
           </div>
           <form class="contact-form">
             <div class="input-container">
-              <label for="name">Name</label>
+              <label for="name">Nom</label>
               <input type="text" name="name" id="name" required />
             </div>
             <div class="input-container">
@@ -68,16 +43,12 @@
                 required
               ></textarea>
             </div>
-            <input type="submit" value="Send Message" />
+            <input type="submit" value="Envoyer le message" />
           </form>
         </div>
       </section>
     </main>
-    <footer>
-      <div class="footer-content">
-        <div class="footer-logo">Travel.com</div>
-        <p>&copy; 2023 Travel.com | All rights reserved.</p>
-      </div>
+    <%- include('footer.ejs') %>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -97,13 +68,13 @@
           .then((data) => {
             if (data.error) {
               Swal.fire({
-                title: "Something went wrong!",
+                title: "Quelque chose s'est mal passé!",
                 text: data.error,
                 icon: "error",
               });
             } else {
               Swal.fire({
-                title: "Sent successfully!",
+                title: "Envoyé avec succès!",
                 text: data.success,
                 icon: "success",
               });

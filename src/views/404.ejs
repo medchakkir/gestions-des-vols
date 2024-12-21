@@ -14,47 +14,17 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/404.css">
+    <title>404 - Page non trouvée</title>
   </head>
-  <title>404 - Page Not Found</title>
   <body>
-    <header>
-      <nav class="navbar">
-          <div class="navbar-logo">Travel</div>
-          <ul class="navbar-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-          <% if (userIsLoggedIn) { %>
-          <details>
-            <summary>
-              <i class="fas fa-user"></i>
-            </summary>
-            <ul>
-              <li><a href="/dashboard">Profile</a></li>
-              <li><a href="/logout">Signout</a></li>
-            </ul>
-          </details>
-          <% } else { %>
-          <div class="navbar-auth-buttons">
-            <a href="/login" class="auth-btn" id="btn-login">Sign in</a>
-            <a href="/register" class="auth-btn" id="btn-register">Register</a>
-          </div>
-          <% } %>
-        </nav>
-    </header>
+    <%- include('header.ejs') %>
     <main id="error_page">
       <div class="container">
         <h1>404</h1>
-        <p>Sorry, the page you are looking for does not exist.</p>
-        <a href="/" class="back-to-home">Go back to Home</a>
+        <p>Désolé, la page que vous recherchez n'existe pas.</p>
+        <a href="/" class="back-to-home">Retour à l'accueil</a>
       </div>
     </main>
-    <footer>
-      <div class="footer-content">
-        <div class="footer-logo">Travel</div>
-        <p>&copy; 2023 Travel.com | All rights reserved.</p>
-      </div>
-    </footer>
+    <%- include('footer.ejs') %>
   </body>
 </html>

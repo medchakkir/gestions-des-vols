@@ -1,7 +1,12 @@
 import dotenv from "dotenv";
 import express from "express";
 import nodemailer from "nodemailer";
-import { registerUser, loginUser } from "../controllers/userController.js";
+import {
+  registerUser,
+  loginUser,
+  sendOtp,
+  resendOtp,
+} from "../controllers/userController.js";
 import trimRequest from "../middlewares/trimMiddleware.js";
 
 const router = express.Router();
@@ -9,6 +14,8 @@ dotenv.config();
 
 router.post("/login", trimRequest, loginUser);
 router.post("/register", trimRequest, registerUser);
+router.post("/verify_otp", trimRequest, sendOtp);
+router.post("/resend_otp", trimRequest, resendOtp);
 
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {

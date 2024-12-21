@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="img/favicon.png"
+      sizes="192x192"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/booking.css" />
+    <title>Travel - Réservation</title>
+  </head>
+  <body>
+    <%- include('_header_protected.ejs') %>
+    <main>
+      <form class="search-form" id="searchForm">
+        <div class="search-bar">
+          <div class="text-input">
+            <input
+              type="text"
+              placeholder="Aéroport de départ..."
+              id="originLocation"
+              name="originLocationCode"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              viewBox="0 0 22 11"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M21.969 1.496c.234.677-.872 1.445-2.268 1.928-.696.242-3.198 1.108-5.68 1.966-.28.391-.773 1.076-.995 1.373-.22.296-.53.589-.89.713-.363.127-1.733.6-1.733.6l.719-1.682c-1.282.442-2.294.794-2.652.917-1.024.354-3.516.383-4.523.432-1.009.051-1.204-.22-1.534-.634S0 3.835 0 3.835l2.205-.357S5.027 4.81 5.537 5.002c.51.193.73.124 1.172-.05 1.58-.62 9.198-3.947 10.634-4.444 2.05-.71 4.39.311 4.626.988m-6.411 8.223a.367.367 0 1 1 0 .734H8.394a.367.367 0 1 1 0-.734z"
+              ></path>
+            </svg>
+            <div id="originLocationResults"></div>
+          </div>
+          <div class="text-input">
+            <input
+              type="text"
+              placeholder="Aéroport d'arrivée..."
+              id="destinationLocation"
+              name="destinationLocationCode"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              viewBox="0 0 21 10"
+            >
+              <path
+                d="M16.739 3.053c2.016 0 3.761 1.607 3.761 2.273s-1.203 1.005-2.575 1.005h-.993a.643.643 0 1 1-.909 0H12.34c-.365.258-1.006.71-1.292.905-.283.191-.644.355-.999.355H8.346l1.142-1.26H6.881c-1.007 0-3.204-.732-4.103-.995-.9-.262-.989-.559-1.154-1.023S.5.705.5.705l2.046.357s2.071 2.026 2.462 2.351c.389.325.601.33 1.043.312 1.576-.064 9.277-.672 10.688-.672m-2.913 6.058a.34.34 0 1 1 0 .683H7.17a.341.341 0 1 1 0-.683z"
+              ></path>
+            </svg>
+            <div id="destinationLocationResults"></div>
+          </div>
+          <div class="select-form">
+            <select name="travelClass" id="flightClass">
+              <option value="ECONOMY" selected>Économie</option>
+              <option value="PREMIUM_ECONOMY">Économie Premium</option>
+              <option value="BUSINESS">Classe Affaires</option>
+              <option value="FIRST">Première Classe</option>
+            </select>
+          </div>
+          <div class="number-input">
+            <label for="adults">Nombre d'adultes</label>
+            <input type="number" name="adults" id="adults" min="1" value="1" />
+          </div>
+          <div class="date-input">
+            <label for="departureDateInput">Date de départ</label>
+            <input type="date" name="departureDate" id="departureDateInput" />
+          </div>
+          <div class="date-input">
+            <label for="returnDateInput">Date de retour</label>
+            <input type="date" name="returnDate" id="returnDateInput" />
+          </div>
+          <input type="submit" id="search-button" value="Rechercher un vol" />
+        </div>
+      </form>
+      <div class="section-content">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th rowspan="2">ID de vol</th>
+              <th rowspan="2">Prix</th>
+              <th colspan="3">Aller</th>
+              <th colspan="3">Retour</th>
+              <th rowspan="2">Action</th>
+            </tr>
+            <tr>
+              <th>Départ</th>
+              <th>Arrivée</th>
+              <th>Durée</th>
+              <th>Départ</th>
+              <th>Arrivée</th>
+              <th>Durée</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="result-item">
+              <td>8</td>
+              <td>672€</td>
+              <td>
+                <p><strong>11:00</strong> LAX</p>
+              </td>
+              <td>
+                <p></p>
+                <p><strong>07:00</strong> JFK</p>
+              </td>
+              <td>6h</td>
+              <td>
+                <p><strong>11:00</strong> JFK</p>
+              </td>
+              <td>
+                <p><strong>07:00</strong> LAX</p>
+              </td>
+              <td>4h 15min</td>
+              <td>
+                <form id="form-flight-8">
+                  <input type="hidden" name="flightId" value="8" />
+                  <input type="hidden" name="price" value="672" />
+                  <input
+                    type="hidden"
+                    name="departureDate"
+                    value="31-12-2024"
+                  />
+                  <input type="hidden" name="departureTime" value="11:00" />
+                  <input type="hidden" name="arrivalTime" value="07:00" />
+                  <input type="hidden" name="departureAirport" value="LAX" />
+                  <input type="hidden" name="arrivalAirport" value="JFK" />
+                  <input type="hidden" name="duration" value="6h" />
+                  <input
+                    type="hidden"
+                    name="returnDepartureTime"
+                    value="11:00"
+                  />
+                  <input type="hidden" name="returnArrivalTime" value="07:00" />
+                  <input
+                    type="hidden"
+                    name="returndepartureDate"
+                    value="07:00"
+                  />
+                  <input type="hidden" name="returnDuration" value="4h 15min" />
+
+                  <button type="submit" class="btn-book">Réserver</button>
+                </form>
+              </td>
+            </tr>
+
+            <!-- Additional results will be dynamically added here -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/flightSearchForm.js"></script>
+    <script src="js/formSubmissionHandler.js"></script>
+  </body>
+</html>

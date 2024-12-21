@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,200 +16,91 @@
     <link rel="stylesheet" href="css/styles.css" />
     <title>Travel.com</title>
   </head>
+
   <body>
+    <%- include('header.ejs') %>
     <main>
-      <header>
-        <nav class="navbar">
-          <div class="navbar-logo">Travel</div>
-          <ul class="navbar-links">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/contact">Contact</a></li>
-          </ul>
-          <% if (userIsLoggedIn) { %>
-          <details>
-            <summary>
-              <i class="fas fa-user"></i>
-            </summary>
-            <ul>
-              <li><a href="/dashboard">Profile</a></li>
-              <li><a href="/logout">Signout</a></li>
-            </ul>
-          </details>
-          <% } else { %>
-          <div class="navbar-auth-buttons">
-            <a href="/login" class="auth-btn" id="btn-login">Sign in</a>
-            <a href="/register" class="auth-btn" id="btn-register">Register</a>
-          </div>
-          <% } %>
-        </nav>
-        <div class="header-banner">
-          <div class="banner-content">
-            <h1>Find deals for any season</h1>
-            <p>From cozy bed & breakfasts to luxury hotels</p>
-            <a href="/about"> Learn More <span>&rarr;</span> </a>
-          </div>
-          <form class="search-form">
-            <div class="radio-input">
-              <input
-                type="radio"
-                name="flightOptions"
-                id="roundTrip"
-                class="radio-btn"
-                value="round-trip"
-                checked
-              />
-              <label for="roundTrip">Round Trip</label>
-              <input
-                type="radio"
-                name="flightOptions"
-                id="oneWay"
-                class="radio-btn"
-                value="one-way"
-              />
-              <label for="oneWay">One Way</label>
-            </div>
-            <div class="search-bar" id="searchBar">
-              <div class="row row-1">
-                <div class="text-input" id="">
-                  <input
-                    type="text"
-                    placeholder="Departing from"
-                    id=""
-                    name="originLocation"
-                  />
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 22 11"
-                    fit=""
-                    preserveAspectRatio="xMidYMid meet"
-                    focusable="false"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M21.969 1.496c.234.677-.872 1.445-2.268 1.928-.696.242-3.198 1.108-5.68 1.966-.28.391-.773 1.076-.995 1.373-.22.296-.53.589-.89.713-.363.127-1.733.6-1.733.6l.719-1.682c-1.282.442-2.294.794-2.652.917-1.024.354-3.516.383-4.523.432-1.009.051-1.204-.22-1.534-.634S0 3.835 0 3.835l2.205-.357S5.027 4.81 5.537 5.002c.51.193.73.124 1.172-.05 1.58-.62 9.198-3.947 10.634-4.444 2.05-.71 4.39.311 4.626.988m-6.411 8.223a.367.367 0 1 1 0 .734H8.394a.367.367 0 1 1 0-.734z"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="text-input" id="">
-                  <input
-                    type="text"
-                    placeholder="Arriving at"
-                    id=""
-                    name="destinationLocation"
-                  />
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 21 10"
-                    fit=""
-                    preserveAspectRatio="xMidYMid meet"
-                    focusable="false"
-                  >
-                    <path
-                      d="M16.739 3.053c2.016 0 3.761 1.607 3.761 2.273s-1.203 1.005-2.575 1.005h-.993a.643.643 0 1 1-.909 0H12.34c-.365.258-1.006.71-1.292.905-.283.191-.644.355-.999.355H8.346l1.142-1.26H6.881c-1.007 0-3.204-.732-4.103-.995-.9-.262-.989-.559-1.154-1.023S.5.705.5.705l2.046.357s2.071 2.026 2.462 2.351c.389.325.601.33 1.043.312 1.576-.064 9.277-.672 10.688-.672m-2.913 6.058a.34.34 0 1 1 0 .683H7.17a.341.341 0 1 1 0-.683z"
-                    ></path>
-                  </svg>
-                </div>
-                <div class="select-form">
-                  <select name="" id="">
-                    <option value="economy" selected>Economy</option>
-                    <option value="business">Business Class</option>
-                    <option value="first">First Class</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row row-2">
-                <div class="date-input" id="departureDate">
-                  <label for="departureDate">Departure Date</label>
-                  <input
-                    type="date"
-                    name="departureDate"
-                    id="departureDateInput"
-                  />
-                </div>
-                <div class="date-input" id="returnDateContainer">
-                  <label for="returnDate">Return Date</label>
-                  <input type="date" name="returnDate" id="returnDateInput" />
-                </div>
-                <input type="submit" id="search-button" value="Search flight" />
-              </div>
-            </div>
-          </form>
+      <div class="header-banner">
+        <div class="banner-content">
+          <h1>Offres pour toutes les saisons</h1>
+          <p>Des offres de vols incroyables pour toutes les destinations</p>
+          <a href="/about">En savoir plus<span>&rarr;</span> </a>
         </div>
-      </header>
-    </main>
-    <footer>
-      <div class="footer-content">
-        <div class="footer-logo">Travel.com</div>
-        <p>&copy; 2023 Travel.com | All rights reserved.</p>
       </div>
-    </footer>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Variables
-        const searchBar = document.getElementById("searchBar");
-        const oneWayFlight = document.getElementById("oneWay");
-        const roundTripFlight = document.getElementById("roundTrip");
-        const returnDateContainer = document.getElementById(
-          "returnDateContainer"
-        );
-        const departureDateInput =
-          document.getElementById("departureDateInput");
-        const returnDateInput = document.getElementById("returnDateInput");
-
-        const today = new Date();
-        const todayISO = today.toISOString().split("T")[0];
-
-        // Ensure the departure date cannot be earlier than today
-        departureDateInput.setAttribute("min", todayISO);
-
-        // Departure Date Input Event Listener
-        departureDateInput.addEventListener("change", (e) => {
-          // If the return date is set
-          if (returnDateInput.value !== "") {
-            console.log("Return date is set: ", returnDateInput.value);
-            const departureDate = new Date(departureDateInput.value);
-            const returnDateValue = new Date(returnDateInput.value);
-
-            // Clear return date if it is earlier than departure date
-            if (returnDateValue < departureDate) {
-              returnDateInput.value = "";
-            }
-          }
-
-          // Set the minimum valid return date to one day after the departure date
-          const departureDate = new Date(departureDateInput.value);
-          const minReturnDate = new Date(departureDate);
-          minReturnDate.setDate(departureDate.getDate() + 1);
-          returnDateInput.setAttribute(
-            "min",
-            minReturnDate.toISOString().split("T")[0]
-          );
-        });
-
-        function updateFlightDetails(isRoundTrip) {
-          searchBar.style.width = "fit-content";
-          returnDateContainer.style.display = isRoundTrip ? "flex" : "none";
-          returnDateInput.required = isRoundTrip;
-          if (!isRoundTrip) {
-            returnDateInput.value = "";
-          }
-        }
-
-        // One Way Flight Event Handler
-        oneWayFlight.addEventListener("click", () => {
-          updateFlightDetails(false);
-        });
-
-        // Round Trip Flight Event Handler
-        roundTripFlight.addEventListener("click", () => {
-          updateFlightDetails(true);
-        });
-      });
-    </script>
+      <section class="popular-destinations">
+        <h2>Destinations Populaires</h2>
+        <div class="destinations-grid">
+          <div class="destination-item">
+            <img src="img/paris.jpg" alt="Paris" />
+            <h3>Paris</h3>
+            <p>La ville de l'amour avec des monuments emblématiques.</p>
+          </div>
+          <div class="destination-item">
+            <img src="img/dubai.jpg" alt="Dubai" />
+            <h3>Dubaï</h3>
+            <p>Une architecture moderne et des expériences inoubliables.</p>
+          </div>
+          <div class="destination-item">
+            <img src="img/tokyo.jpg" alt="Tokyo" />
+            <h3>Tokyo</h3>
+            <p>Un mélange de tradition et de technologie futuriste.</p>
+          </div>
+        </div>
+      </section>
+      <section class="why-choose-us">
+        <h2>Pourquoi nous choisir ?</h2>
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-plane"></i>
+            <h3>Large choix de vols</h3>
+            <p>Des milliers de destinations à portée de main.</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-wallet"></i>
+            <h3>Prix compétitifs</h3>
+            <p>Obtenez les meilleurs tarifs grâce à nos offres exclusives.</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-clock"></i>
+            <h3>Service client 24/7</h3>
+            <p>Nous sommes disponibles à tout moment pour vous aider.</p>
+          </div>
+        </div>
+      </section>
+      <section class="customer-reviews">
+        <h2>Ce que disent nos clients</h2>
+        <div class="reviews">
+          <div class="review">
+            <p>
+              <i
+                >"Une expérience incroyable ! Les prix étaient compétitifs et le
+                service était parfait."</i
+              >
+            </p>
+            <h4>- Moustaphe Aden</h4>
+          </div>
+          <div class="review">
+            <p>
+              <i
+                >"Rapide, facile, et fiable. Je réserverai à nouveau sans
+                hésiter."</i
+              >
+            </p>
+            <h4>- Mahad Amin</h4>
+          </div>
+          <div class="review">
+            <p>
+              <i
+                >"J'adore la simplicité d'utilisation et le large choix de
+                destinations."</i
+              >
+            </p>
+            <h4>- Abdirahman Warsama</h4>
+          </div>
+        </div>
+      </section>
+    </main>
+    <%- include('footer.ejs') %>
+    <script src="js/main.js"></script>
   </body>
 </html>

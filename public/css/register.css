@@ -1,12 +1,11 @@
-
 /* Register styles */
-.sign-section {
+.auth-section {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.sign-container {
+.auth-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -15,33 +14,33 @@
   margin-top: 32px;
 }
 
-.sign-header h3 {
+.auth-header h3 {
   font-size: 24px;
   font-weight: 500;
 }
 
-.sign-header p {
+.auth-header p {
   font-size: 14px;
   font-weight: 400;
 }
 
-.sign-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.sign-form .input-container {
+.auth-form .input-container {
   display: flex;
   flex-direction: column;
 }
 
-.sign-form label {
+.auth-form label {
   font-size: 16px;
   font-weight: 500;
 }
 
-.sign-form input {
+.auth-form input {
   padding: 10px;
   border: 1px solid #999999;
   border-radius: 4px;
@@ -56,11 +55,11 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-.sign-form p a {
+.auth-form p a {
   color: #003b95;
   text-decoration: underline;
 }
 
-.sign-form p a:hover {
+.auth-form p a:hover {
   color: #002366;
 }

@@ -8,8 +8,11 @@ import { fileURLToPath } from "url";
 
 // local files
 import db from "./src/config/db.js";
+import apiRoutes from "./src/routes/apiRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
-import isLoggedIn from "./src/middlewares/authMiddleware.js";
+import { isAuthenticated } from "./src/middlewares/authMiddleware.js";
+import { getTokenMiddleware } from "./src/middlewares/getTokenMiddleware.js";
+import { getFlightByUserId } from "./src/models/flightModal.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,7 +40,11 @@ app.use(
     secret: process.env.SESSION_SECRET || "your_secret_key",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Set secure to true if using HTTPS
+    cookie: {
+      secure: false, // Set to true if using HTTPS
+      httpOnly: true, // Prevent access via JavaScript
+      maxAge: 30 * 60 * 1000, // Session expiration set to 30 minutes
+    },
   })
 );
 
@@ -46,25 +53,25 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 function checkSessionUserStatus(req) {
-  let userIsLoggedIn = false;
-  if (req.session.user) {
-    userIsLoggedIn = true;
-  }
-  console.log(`User login status for ${req.path}: ${userIsLoggedIn}`);
-  return userIsLoggedIn;
+  const userIsLoggedIn = !!req.session.user;
+  return { userIsLoggedIn, user: req.session.user };
 }
 
 // Routes
 app.get("/", (req, res) => {
+  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
   res.render("index", {
-    userIsLoggedIn: checkSessionUserStatus(req),
+    user,
+    userIsLoggedIn,
   });
 });
 app.get("/about", (req, res) => {
-  res.render("about", { userIsLoggedIn: checkSessionUserStatus(req) });
+  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
+  res.render("about", { userIsLoggedIn, user });
 });
 app.get("/contact", (req, res) => {
-  res.render("contact", { userIsLoggedIn: checkSessionUserStatus(req) });
+  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
+  res.render("contact", { userIsLoggedIn, user });
 });
 app.get("/login", (req, res) => {
   res.render("login");
@@ -72,24 +79,38 @@ app.get("/login", (req, res) => {
 app.get("/register", (req, res) => {
   res.render("register");
 });
+app.get("/verification", (req, res) => {
+  res.render("verification");
+});
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/");
   });
 });
 
-// Protected route example
-app.get("/dashboard", isLoggedIn, (req, res) => {
-  // console.log(req.session.user);
-  res.render("dashboard", { user: req.session.user });
+// Protected routes
+app.get("/dashboard", isAuthenticated, async (req, res) => {
+  const user = req.session.user;
+  console.log("User id:", user.id);
+  const userFlights = await getFlightByUserId(user.id);
+  console.log("User flights:", userFlights);
+  res.render("dashboard", { user, userFlights });
+});
+
+app.get("/booking", isAuthenticated, (req, res) => {
+  res.render("booking");
 });
 
 // Routes des utilisateurs
 app.use("/users", userRoutes);
 
+// Routes de l'API
+app.use("/api", getTokenMiddleware, apiRoutes);
+
 // Gestion des erreurs 404
 app.use((req, res) => {
-  res.render("404", { userIsLoggedIn: checkSessionUserStatus(req) });
+  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
+  res.render("404", { userIsLoggedIn, user });
 });
 
 // Centralized error handling middleware

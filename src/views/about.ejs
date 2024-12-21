@@ -15,78 +15,46 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/about.css" />
-    <title>Travel - About Us</title>
+    <title>Travel - À propos de nous</title>
   </head>
   <body>
-    <header>
-      <nav class="navbar">
-        <div class="navbar-logo">Travel</div>
-        <ul class="navbar-links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-        <% if (userIsLoggedIn) { %>
-        <details>
-          <summary>
-            <i class="fas fa-user"></i>
-          </summary>
-          <ul>
-            <li><a href="/dashboard">Profile</a></li>
-            <li><a href="/logout">Signout</a></li>
-          </ul>
-        </details>
-        <% } else { %>
-        <div class="navbar-auth-buttons">
-          <a href="/login" class="auth-btn" id="btn-login">Sign in</a>
-          <a href="/register" class="auth-btn" id="btn-register">Register</a>
-        </div>
-        <% } %>
-      </nav>
-    </header>
+    <%- include('header.ejs') %>
     <main>
       <section>
-        <h2>Our Mission</h2>
+        <h2>Notre mission</h2>
         <p>
-          Our mission is to provide the best flight management services to our
-          customers.
+          Notre mission est de fournir les meilleurs services de gestion de vols à nos clients.
         </p>
       </section>
       <section>
-        <h2>Our Team</h2>
+        <h2>Notre équipe</h2>
         <p>
-          We have a dedicated team of professionals who are passionate about
-          aviation and customer service.
+          Nous avons une équipe dédiée de professionnels passionnés par l'aviation et le service client.
         </p>
       </section>
       <section>
-        <h2>Our History</h2>
+        <h2>Notre histoire</h2>
         <p>
-          Founded in 2010, Travel.com has grown from a small startup to a leading provider of flight management services.
+          Fondée en 2010, Travel.com est passée d'une petite startup à un leader dans la gestion de vols.
         </p>
       </section>
       <section>
-        <h2>Our Values</h2>
+        <h2>Nos valeurs</h2>
         <ul>
-          <li>Customer Satisfaction</li>
-          <li>Integrity</li>
+          <li>Satisfaction client</li>
+          <li>Intégrité</li>
           <li>Innovation</li>
-          <li>Teamwork</li>
+          <li>Travail d'équipe</li>
         </ul>
       </section>
       <section>
-        <h2>Contact Us</h2>
+        <h2>Contactez-nous</h2>
         <p>
-          If you have any questions, feel free to
-          <a href="/contact">contact us</a>.
+          Si vous avez des questions, n'hésitez pas à
+          <a href="/contact">nous contacter</a>.
         </p>
       </section>
     </main>
-    <footer>
-      <div class="footer-content">
-        <div class="footer-logo">Travel.com</div>
-        <p>&copy; 2023 Travel.com | All rights reserved.</p>
-      </div>
-    </footer>
+    <%- include('footer.ejs') %>
   </body>
 </html>

@@ -14,26 +14,22 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="css/auth.css" />
     <title>Travel - Login</title>
   </head>
   <body>
+    <%- include('_header_auth.ejs') %>
     <main>
-      <header>
-        <nav class="navbar">
-          <div class="navbar-logo">Travel</div>
-        </nav>
-      </header>
-      <section class="sign-section">
-        <div class="sign-container">
-          <div class="sign-header">
+      <section class="auth-section">
+        <div class="auth-container">
+          <div class="auth-header">
             <h3>Se connecter maintenant</h3>
             <p>
               Connectez-vous à votre compte Travel.com et accédez à nos
               services.
             </p>
           </div>
-          <form class="sign-form">
+          <form class="auth-form">
             <div class="input-container">
               <label for="email">Email</label>
               <input type="email" name="email" id="email" required />
@@ -42,7 +38,6 @@
               <label for="password">Mot de Passe</label>
               <input type="password" name="password" id="password" required />
             </div>
-            <!-- <p><a href="forgot-password.html">Forgot Password?</a></p> -->
             <input type="submit" value="Se connecter" />
             <p>Pas de compte? <a href="/register">S'inscrire</a></p>
           </form>
@@ -54,25 +49,24 @@
       document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData);
-        console.log(data);
+        const entries = Object.fromEntries(formData);
+        console.log(entries);
         fetch("/users/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(entries),
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
-              Swal.fire({
-                title: "Error!",
-                text: data.error,
-                icon: "error",
-              });
+              Swal.fire("Error!", data.message, "error");
+              console.error("Login failed:", data.error);
             } else {
-              window.location.href = "/";
+              Swal.fire("Success!", data.message, "success").then(() => {
+                window.location.href = data.redirect;
+              });
             }
           });
       });
