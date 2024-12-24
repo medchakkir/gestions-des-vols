@@ -61,7 +61,7 @@
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
-              Swal.fire("Error!", data.message, "error");
+              Swal.fire("Error!", data.error, "error");
               console.error("Login failed:", data.error);
             } else {
               Swal.fire("Success!", data.message, "success").then(() => {

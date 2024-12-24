@@ -93,7 +93,8 @@ const registerUser = async (req, res) => {
 
     console.log("User registered:", user);
     res.status(201).json({
-      message: "User registered successfully!",
+      message:
+        "User registered successfully! Please verify your email for the OTP code.",
       redirect: "/verification",
     });
   } catch (error) {
