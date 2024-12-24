@@ -15,11 +15,10 @@ CREATE TABLE IF NOT EXISTS users (
   verified BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 CREATE TABLE IF NOT EXISTS flights (
     
-    user_id INT REFERENCES users(id),
-
-    flight_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     price DECIMAL(10, 2),
     departureAirport VARCHAR(5),
     arrivalAirport VARCHAR(5),
@@ -35,6 +34,15 @@ CREATE TABLE IF NOT EXISTS flights (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+    CREATE TABLE IF NOT EXISTS bookings (
+      id SERIAL PRIMARY KEY,
+      
+      user_id INT REFERENCES users(id),
+      flight_id INT REFERENCES flights(id),
+
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
 `;
 
 const pool = new pg.Pool({
