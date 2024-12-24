@@ -1,8 +1,3 @@
-/* Section styles */
-.section-content {
-  padding: 20px;
-  background-color: #f5f5f5;
-}
 /* Search Form */
 .search-form {
   width: 80%;
@@ -19,6 +14,24 @@
   flex-wrap: wrap;
   gap: 15px;
   width: 100%;
+}
+
+.flight-options {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.flight-options label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #003b95;
+  cursor: pointer;
+}
+
+.flight-options input[type="radio"] {
+  margin-right: 5px;
 }
 
 .text-input,
@@ -88,9 +101,16 @@
   .text-input,
   .select-form,
   .date-input,
-  .number-input {
+  .number-input,
+  .flight-options {
     width: 100%;
   }
+}
+
+/* Section styles */
+.section-content {
+  padding: 20px;
+  background-color: #f5f5f5;
 }
 
 /* Results Table */
