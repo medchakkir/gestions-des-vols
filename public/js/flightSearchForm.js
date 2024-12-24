@@ -38,6 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const searchBar = document.getElementById("searchBar");
   const oneWayFlight = document.getElementById("oneWay");
   const roundTripFlight = document.getElementById("roundTrip");
+  const returnDateContainer = document.getElementById("returnDateContainer");
 
   // Function to update flight details based on trip type
   function updateFlightDetails(isRoundTrip) {
@@ -51,11 +52,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // One Way Flight Event Handler
   oneWayFlight.addEventListener("click", () => {
+    console.log("one-way clicked");
     updateFlightDetails(false);
   });
 
   // Round Trip Flight Event Handler
   roundTripFlight.addEventListener("click", () => {
+    console.log("round-trip clicked");
     updateFlightDetails(true);
   });
 });
