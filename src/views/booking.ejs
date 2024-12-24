@@ -25,7 +25,7 @@
           <label>
             <input
               type="radio"
-              name="flightOption"
+              name="flightOptions"
               id="roundTrip"
               value="round-trip"
               checked
@@ -35,7 +35,7 @@
           <label>
             <input
               type="radio"
-              name="flightOption"
+              name="flightOptions"
               id="oneWay"
               value="one-way"
             />
@@ -123,58 +123,7 @@
               <th>Durée</th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="result-item">
-              <td>672€</td>
-              <td>
-                <p><strong>11:00</strong> LAX</p>
-              </td>
-              <td>
-                <p></p>
-                <p><strong>07:00</strong> JFK</p>
-              </td>
-              <td>6h</td>
-              <td>
-                <p><strong>11:00</strong> JFK</p>
-              </td>
-              <td>
-                <p><strong>07:00</strong> LAX</p>
-              </td>
-              <td>4h 15min</td>
-              <td>
-                <form id="form-flight-8">
-                  <input type="hidden" name="flightId" value="8" />
-                  <input type="hidden" name="price" value="672" />
-                  <input
-                    type="hidden"
-                    name="departureDate"
-                    value="31-12-2024"
-                  />
-                  <input type="hidden" name="departureTime" value="11:00" />
-                  <input type="hidden" name="arrivalTime" value="07:00" />
-                  <input type="hidden" name="departureAirport" value="LAX" />
-                  <input type="hidden" name="arrivalAirport" value="JFK" />
-                  <input type="hidden" name="duration" value="6h" />
-                  <input
-                    type="hidden"
-                    name="returnDepartureTime"
-                    value="11:00"
-                  />
-                  <input type="hidden" name="returnArrivalTime" value="07:00" />
-                  <input
-                    type="hidden"
-                    name="returndepartureDate"
-                    value="07:00"
-                  />
-                  <input type="hidden" name="returnDuration" value="4h 15min" />
-
-                  <button type="submit" class="btn-book">Réserver</button>
-                </form>
-              </td>
-            </tr>
-
-            <!-- Additional results will be dynamically added here -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </main>

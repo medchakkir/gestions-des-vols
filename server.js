@@ -91,9 +91,9 @@ app.get("/logout", (req, res) => {
 // Protected routes
 app.get("/dashboard", isAuthenticated, async (req, res) => {
   const user = req.session.user;
-  console.log("User id:", user.id);
+  // console.log("User id:", user.id);
   const userFlights = await getFlightByUserId(user.id);
-  console.log("User flights:", userFlights);
+  // console.log("User flights:", userFlights);
   res.render("dashboard", { user, userFlights });
 });
 

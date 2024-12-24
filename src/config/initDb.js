@@ -17,18 +17,18 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS flights (
-    
     id SERIAL PRIMARY KEY,
     price DECIMAL(10, 2),
     departureAirport VARCHAR(5),
-    arrivalAirport VARCHAR(5),
     departureDate VARCHAR(20),
     departureTime VARCHAR(20),
+    arrivalAirport VARCHAR(5),
+    arrivalDate VARCHAR(20),
     arrivalTime VARCHAR(20),
     duration VARCHAR(20),
-
     returnDepartureDate VARCHAR(20),
     returnDepartureTime VARCHAR(20),
+    returnArrivalDate VARCHAR(20),
     returnArrivalTime VARCHAR(20),
     returnDuration VARCHAR(20),
 
@@ -37,10 +37,8 @@ CREATE TABLE IF NOT EXISTS flights (
 
     CREATE TABLE IF NOT EXISTS bookings (
       id SERIAL PRIMARY KEY,
-      
       user_id INT REFERENCES users(id),
       flight_id INT REFERENCES flights(id),
-
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
 `;

@@ -11,39 +11,6 @@ import { registerFlight } from "../controllers/flightController.js";
 
 const router = express.Router();
 
-router.get("/locations/:query", async (req, res) => {
-  try {
-    const token = req.token;
-    const { query } = req.params;
-
-    if (!checkRequiredFields([query], res)) return;
-
-    const amadeusResponse = await axios.get(
-      "https://test.api.amadeus.com/v1/reference-data/locations",
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        params: { subType: "AIRPORT", keyword: query, view: "LIGHT" },
-      }
-    );
-
-    const locations = amadeusResponse.data.data.map((location) => ({
-      iataCode: location.iataCode,
-      cityName: location.address.cityName,
-      countryName: location.address.countryName,
-    }));
-
-    res.status(200).json({ data: locations });
-  } catch (error) {
-    console.error(
-      "Error fetching locations:",
-      error.response?.data || error.message
-    );
-    res
-      .status(500)
-      .json({ error: "Failed to fetch locations from Amadeus API." });
-  }
-});
-
 router.post("/search-flights", async (req, res) => {
   try {
     const token = req.token;
@@ -52,7 +19,7 @@ router.post("/search-flights", async (req, res) => {
       destinationLocationCode,
       departureDate,
       returnDate,
-
+      flightOptions,
       travelClass,
       adults,
     } = req.body;
@@ -61,7 +28,6 @@ router.post("/search-flights", async (req, res) => {
       [originLocationCode, destinationLocationCode, departureDate],
       res
     );
-    const flightOptions = "round-trip";
 
     const params = {
       originLocationCode,
@@ -132,5 +98,38 @@ router.post("/search-flights", async (req, res) => {
 });
 
 router.post("/book-flight", isAuthenticated, registerFlight);
+
+router.get("/locations/:query", async (req, res) => {
+  try {
+    const token = req.token;
+    const { query } = req.params;
+
+    if (!checkRequiredFields([query], res)) return;
+
+    const amadeusResponse = await axios.get(
+      "https://test.api.amadeus.com/v1/reference-data/locations",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { subType: "AIRPORT", keyword: query, view: "LIGHT" },
+      }
+    );
+
+    const locations = amadeusResponse.data.data.map((location) => ({
+      iataCode: location.iataCode,
+      cityName: location.address.cityName,
+      countryName: location.address.countryName,
+    }));
+
+    res.status(200).json({ data: locations });
+  } catch (error) {
+    console.error(
+      "Error fetching locations:",
+      error.response?.data || error.message
+    );
+    res
+      .status(500)
+      .json({ error: "Failed to fetch locations from Amadeus API." });
+  }
+});
 
 export default router;

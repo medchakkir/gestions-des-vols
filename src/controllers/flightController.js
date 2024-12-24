@@ -1,18 +1,19 @@
-import { createFlight } from "../models/flightModal.js";
+import { bookFlight, createFlight } from "../models/flightModal.js";
 import { checkRequiredFields } from "../utils/validationUtils.js";
 
 const registerFlight = async (req, res) => {
   const {
-    flight_id,
     price,
+    departureAirport,
     departureDate,
     departureTime,
-    arrivalTime,
-    departureAirport,
     arrivalAirport,
+    arrivalDate,
+    arrivalTime,
     duration,
     returnDepartureDate,
     returnDepartureTime,
+    returnArrivalDate,
     returnArrivalTime,
     returnDuration,
   } = req.body;
@@ -20,18 +21,14 @@ const registerFlight = async (req, res) => {
   if (
     !checkRequiredFields(
       [
-        flight_id,
         price,
+        departureAirport,
         departureDate,
         departureTime,
-        arrivalTime,
-        departureAirport,
         arrivalAirport,
+        arrivalDate,
+        arrivalTime,
         duration,
-        returnDepartureDate,
-        returnDepartureTime,
-        returnArrivalTime,
-        returnDuration,
       ],
       res
     )
@@ -40,26 +37,32 @@ const registerFlight = async (req, res) => {
   try {
     // Save booking to the database
     const flight = await createFlight({
-      flight_id,
-      user_id: req.session.user.id,
       price,
+      departureAirport,
       departureDate,
       departureTime,
-      arrivalTime,
-      departureAirport,
       arrivalAirport,
+      arrivalDate,
+      arrivalTime,
       duration,
-      returnDepartureDate,
-      returnDepartureTime,
-      returnArrivalTime,
-      returnDuration,
+      returnDepartureDate: null,
+      returnDepartureTime: null,
+      returnArrivalDate: null,
+      returnArrivalTime: null,
+      returnDuration: null,
     });
 
-    console.log("Flight booked:", flight);
-    res.status(201).json({ message: "Flight booked successfully." });
+    const flightData = await bookFlight(req.session.user.id, flight.id);
+
+    res
+      .status(201)
+      .json({ message: "Flight booked successfully.", redirect: "/dashboard" });
   } catch (error) {
     console.error("Error booking flight:", error.message || error);
-    res.status(500).json({ error: error.message || error });
+    res.status(500).json({
+      error:
+        "An error occurred while booking the flight. Please try again later.",
+    });
   }
 };
 

@@ -1,56 +1,50 @@
 import pool from "../config/db.js";
 
 const createFlight = async ({
-  user_id,
-
-  flight_id,
   price,
+  departureAirport,
   departureDate,
   departureTime,
-  arrivalTime,
-  departureAirport,
   arrivalAirport,
+  arrivalDate,
+  arrivalTime,
   duration,
-
   returnDepartureDate,
   returnDepartureTime,
+  returnArrivalDate,
   returnArrivalTime,
   returnDuration,
 }) => {
   const query = `
         INSERT INTO flights (
-        user_id,
-        
-        flight_id,
         price,
         departureAirport,
-        arrivalAirport,
         departureDate,
         departureTime,
+        arrivalAirport,
+        arrivalDate,
         arrivalTime,
         duration,
-
         returnDepartureDate,
         returnDepartureTime,
-        returnArrivalTime, 
+        returnArrivalDate,
+        returnArrivalTime,
         returnDuration)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
-        RETURNING user_id, flight_id, price;
+        RETURNING *;
     `;
   const values = [
-    user_id,
-
-    flight_id,
     price,
     departureAirport,
-    arrivalAirport,
     departureDate,
     departureTime,
+    arrivalAirport,
+    arrivalDate,
     arrivalTime,
     duration,
-
     returnDepartureDate,
     returnDepartureTime,
+    returnArrivalDate,
     returnArrivalTime,
     returnDuration,
   ];
@@ -59,9 +53,21 @@ const createFlight = async ({
   return result.rows[0];
 };
 
+const bookFlight = async (userId, flightId) => {
+  const query = `
+        INSERT INTO bookings (user_id, flight_id)
+        VALUES ($1, $2)
+        RETURNING *;
+    `;
+  const values = [userId, flightId];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+
 const getFlightByUserId = async (userId) => {
   const query = `
-        SELECT * FROM flights
+        SELECT flights.* FROM flights
+        JOIN bookings on bookings.flight_id = flights.id
         WHERE user_id = $1;
     `;
   const values = [userId];
@@ -69,4 +75,4 @@ const getFlightByUserId = async (userId) => {
   return result.rows;
 };
 
-export { createFlight, getFlightByUserId };
+export { createFlight, bookFlight, getFlightByUserId };

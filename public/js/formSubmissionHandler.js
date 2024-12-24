@@ -1,119 +1,178 @@
 "use strict";
 
-document.getElementById("searchForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const entries = Object.fromEntries(formData);
-  console.log("Form data: ", entries);
-
+// Helper to perform API calls
+async function apiRequest(url, method, body) {
   try {
-    const response = await fetch("/api/search-flights", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(entries),
+    const response = await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
 
     const result = await response.json();
-    console.log("API Response:", result.data);
 
-    if (response.ok) {
-      updateResults(result.data); // Display results
-    } else {
-      Swal.fire("Erreur", result.error, "error");
+    if (!response.ok) {
+      throw new Error(result.error || "Unknown error occurred");
     }
+
+    return result;
   } catch (error) {
-    console.error("Error: ", error);
-    Swal.fire(
-      "Erreur",
-      "Échec de la récupération des vols. Veuillez réessayer plus tard.",
-      "error"
+    console.error("API Error: ", error);
+    Swal.fire("Erreur", error.message, "error");
+    throw error;
+  }
+}
+
+// Search form handler
+document.getElementById("searchForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const searchParams = Object.fromEntries(formData);
+
+  try {
+    const { data: flights } = await apiRequest(
+      "/api/search-flights",
+      "POST",
+      searchParams
     );
+    renderResults(flights);
+  } catch (error) {
+    console.error("Flight search error:", error);
+    Swal.fire("Erreur", "Flight search failed", "error");
   }
 });
 
-function updateResults(flights) {
-  const resultsTable = document.querySelector(".results-table tbody");
-  resultsTable.innerHTML = flights.map(renderFlightHTML).join("");
+// Render search results
+function renderResults(flights) {
+  const isRoundTrip = flights.some((flight) => flight.itineraries.retour);
+  const resultsTable = document.querySelector(".results-table");
 
-  flights.forEach((flight) => {
-    document
-      .getElementById("form-flight-" + flight.id)
-      .addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const entries = Object.fromEntries(formData);
-        console.log("Form data: ", entries);
+  // Update table header dynamically
+  resultsTable.innerHTML = `
+    ${renderTableHead(isRoundTrip)}
+    <tbody>
+      ${flights.map(renderFlightHTML).join("")}
+    </tbody>
+  `;
 
-        try {
-          const response = await fetch("/api/book-flight", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(entries),
-          });
+  // Attach booking form handlers
+  flights.forEach((flight) => attachBookingHandler(flight.id));
+}
 
-          const result = await response.json();
-          console.log("API Response:", result.data);
-
-          if (response.ok) {
-            Swal.fire("Succès", result.data, "success");
-          } else {
-            Swal.fire("Erreur", result.error, "error");
-          }
-        } catch (error) {
-          console.error("Error: ", error);
-          Swal.fire(
-            "Erreur",
-            "Échec de la réservation du vol. Veuillez réessayer plus tard.",
-            "error"
-          );
-        }
-      });
-  });
+// Render table header
+function renderTableHead(isRoundTrip) {
+  return `
+    <thead>
+      <tr>
+        <th rowspan="2">Prix</th>
+        <th colspan="3">Aller</th>
+        ${isRoundTrip ? '<th colspan="3">Retour</th>' : ""}
+        <th rowspan="2">Action</th>
+      </tr>
+      <tr>
+        <th>Départ</th>
+        <th>Arrivée</th>
+        <th>Durée</th>
+        ${isRoundTrip ? "<th>Départ</th><th>Arrivée</th><th>Durée</th>" : ""}
+      </tr>
+    </thead>
+  `;
 }
 
 function renderFlightHTML(flight) {
+  const aller = flight.itineraries.aller;
+  const retour = flight.itineraries.retour;
+
   return `
-        <tr class="result-item">
-          <td>${flight.id}</td>
-          <td>${flight.price.total}€</td>
-          <td>
-            <p><strong>${flight.itineraries.aller.departureTime}</strong> ${flight.itineraries.aller.departureAirport}</p>
-          </td>
-          <td>
-            <p><strong>${flight.itineraries.aller.arrivalTime}</strong> ${flight.itineraries.aller.arrivalAirport}</p>
-          </td>
-          <td>${flight.itineraries.aller.duration}</td>
-          <td>
-            <p><strong>${flight.itineraries.retour.departureTime}</strong> ${flight.itineraries.retour.departureAirport}</p>
-          </td>
-          <td>
-            <p><strong>${flight.itineraries.retour.arrivalTime}</strong> ${flight.itineraries.retour.arrivalAirport}</p>
-          </td>
-          <td>${flight.itineraries.retour.duration}</td>
-          <td>
-            <form id="form-flight-${flight.id}">
-              <!-- Hidden Inputs -->
-              <input type="hidden" name="flight_id" value="${flight.id}" />
-              <input type="hidden" name="price" value="${flight.price.total}" />
-              <input type="hidden" name="departureDate" value="${flight.itineraries.aller.departureDate}" />
-              <input type="hidden" name="departureTime" value="${flight.itineraries.aller.departureTime}" />
-              <input type="hidden" name="arrivalTime" value="${flight.itineraries.aller.arrivalTime}" />
-              <input type="hidden" name="departureAirport" value="${flight.itineraries.aller.departureAirport}" />
-              <input type="hidden" name="arrivalAirport" value="${flight.itineraries.aller.arrivalAirport}" />
-              <input type="hidden" name="duration" value="${flight.itineraries.aller.duration}" />
-              <input type="hidden" name="returnDepartureDate" value="${flight.itineraries.retour.departureDate}" />
-              <input type="hidden" name="returnDepartureTime" value="${flight.itineraries.retour.departureTime}" />
-              <input type="hidden" name="returnArrivalTime" value="${flight.itineraries.retour.arrivalTime}" />
-              <input type="hidden" name="returnDuration" value="${flight.itineraries.retour.duration}" />
-              
-              <button type="submit" class="btn-book">Réserver</button>
-              </form>
-          </td>
-        </tr>
-    </div>
+    <tr class="result-item">
+      <td>${flight.price.total}€</td>
+      <td>
+        <p><strong>${aller.departureTime}</strong> ${aller.departureAirport}</p>
+        <p><strong>${aller.departureDate}</strong></p>
+      </td>
+      <td>
+        <p><strong>${aller.arrivalTime}</strong> ${aller.arrivalAirport}</p>
+        <p><strong>${aller.arrivalDate}</strong></p>
+      </td>
+      <td>${aller.duration}</td>
+
+      ${
+        retour
+          ? `
+        <td>
+          <p><strong>${retour.departureTime}</strong> ${retour.departureAirport}</p>
+          <p><strong>${retour.departureDate}</strong></p>
+        </td>
+        <td>
+          <p><strong>${retour.arrivalTime}</strong> ${retour.arrivalAirport}</p>
+          <p><strong>${retour.arrivalDate}</strong></p>
+        </td>
+        <td>${retour.duration}</td>
+        `
+          : ""
+      }
+      <td>
+        <form id="form-flight-${flight.id}">
+          ${generateHiddenInputs(flight)}
+          <button type="submit" class="btn-book">Réserver</button>
+        </form>
+      </td>
+    </tr>
   `;
+}
+
+function generateHiddenInputs(flight) {
+  const aller = flight.itineraries.aller;
+  const retour = flight.itineraries.retour;
+
+  return `
+    <input type="hidden" name="price" value="${flight.price.total}" />
+    <input type="hidden" name="departureAirport" value="${
+      aller.departureAirport
+    }" />
+    <input type="hidden" name="departureDate" value="${aller.departureDate}" />
+    <input type="hidden" name="departureTime" value="${aller.departureTime}" />
+    <input type="hidden" name="arrivalAirport" value="${
+      aller.arrivalAirport
+    }" />
+    <input type="hidden" name="arrivalDate" value="${aller.arrivalDate}" />
+    <input type="hidden" name="arrivalTime" value="${aller.arrivalTime}" />
+    <input type="hidden" name="duration" value="${aller.duration}" />
+    ${
+      retour
+        ? `
+      <input type="hidden" name="returnDepartureDate" value="${retour.departureDate}" />
+      <input type="hidden" name="returnDepartureTime" value="${retour.departureTime}" />
+      <input type="hidden" name="returnArrivalDate" value="${retour.arrivalDate}" />
+      <input type="hidden" name="returnArrivalTime" value="${retour.arrivalTime}" />
+      <input type="hidden" name="returnDuration" value="${retour.duration}" />
+      `
+        : ""
+    }
+  `;
+}
+
+function attachBookingHandler(flightId) {
+  document
+    .getElementById(`form-flight-${flightId}`)
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const bookingData = Object.fromEntries(formData);
+
+      try {
+        const response = await apiRequest(
+          "/api/book-flight",
+          "POST",
+          bookingData
+        );
+
+        Swal.fire("Succès", response.message, "success").then(() => {
+          window.location.href = data.redirect;
+        });
+      } catch (error) {
+        console.error("Error: ", error);
+        Swal.fire("Erreur", error.message, "error");
+      }
+    });
 }

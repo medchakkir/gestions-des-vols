@@ -52,13 +52,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // One Way Flight Event Handler
   oneWayFlight.addEventListener("click", () => {
-    console.log("one-way clicked");
     updateFlightDetails(false);
   });
 
   // Round Trip Flight Event Handler
   roundTripFlight.addEventListener("click", () => {
-    console.log("round-trip clicked");
     updateFlightDetails(true);
   });
 });

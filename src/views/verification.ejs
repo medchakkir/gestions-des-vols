@@ -18,27 +18,22 @@
     <title>Travel - Email verification</title>
   </head>
   <body>
-    <%- include('_header_auth.ejs') %>
-    <main>
-      <section class="auth-section">
-        <div class="auth-container">
-          <div class="auth-header">
-            <h3>Vérification de l'email</h3>
-            <p>
-              Veuillez entrer votre adresse email pour vérifier votre compte.
-            </p>
-          </div>
-          <form class="auth-form">
-            <div class="input-container">
-              <label for="otp">OTP Code</label>
-              <input type="text" name="otp" id="otp" required />
-            </div>
-            <input type="submit" value="Vérifier" />
-          </form>
-          <p>OTP expired? <a href="/verification">Resend OTP</a></p>
+    <section class="auth-section">
+      <div class="auth-container">
+        <div class="auth-header">
+          <h3>Vérification de l'email</h3>
+          <p>Veuillez entrer votre adresse email pour vérifier votre compte.</p>
         </div>
-      </section>
-    </main>
+        <form class="auth-form">
+          <div class="input-container">
+            <label for="otp">OTP Code</label>
+            <input type="text" name="otp" id="otp" required />
+          </div>
+          <input type="submit" value="Vérifier" />
+        </form>
+        <p>OTP expired? <a href="/verification">Resend OTP</a></p>
+      </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document.querySelector("form").addEventListener("submit", (e) => {

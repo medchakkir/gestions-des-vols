@@ -1,3 +1,7 @@
+body {
+  justify-content: center;
+}
+
 /* Login styles */
 .auth-section {
   width: 100%;
