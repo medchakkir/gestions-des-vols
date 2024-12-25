@@ -96,6 +96,10 @@ aside .info-container {
   border-color: #003b95;
 }
 
+.tab-button.active:hover {
+  background-color: rgba(0, 86, 179, 0.9);
+} 
+
 .tab-button:hover {
   background-color: #e0e0e0;
 }
@@ -130,14 +134,15 @@ aside .info-container {
   font-weight: bold;
 }
 
-.results-table tr:nth-child(even) {
+.results-table tr:nth-child(even) td{
   background-color: #f9f9f9;
 }
 
-.results-table tr:hover {
+.results-table tr:hover td{
   background-color: #f1f1f1;
 }
 
 .results-table td {
   color: #333;
+  background-color: #ffffff;
 }
