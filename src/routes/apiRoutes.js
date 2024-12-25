@@ -1,5 +1,6 @@
 import axios from "axios";
 import express from "express";
+import Amadeus from "amadeus";
 import {
   formatDate,
   formatTime,
@@ -11,9 +12,13 @@ import { registerFlight } from "../controllers/flightController.js";
 
 const router = express.Router();
 
+const amadeus = new Amadeus({
+  clientId: process.env.AMADEUS_CLIENT_ID,
+  clientSecret: process.env.AMADEUS_CLIENT_SECRET,
+});
+
 router.post("/search-flights", async (req, res) => {
   try {
-    const token = req.token;
     const {
       originLocationCode,
       destinationLocationCode,
@@ -46,12 +51,11 @@ router.post("/search-flights", async (req, res) => {
       params.returnDate = returnDate;
     }
 
-    const amadeusResponse = await axios.get(
-      "https://test.api.amadeus.com/v2/shopping/flight-offers",
-      { headers: { Authorization: `Bearer ${token}` }, params }
+    const amadeusResponse = await amadeus.shopping.flightOffersSearch.get(
+      params
     );
 
-    const flights = amadeusResponse.data.data.map((flight) => {
+    const flights = amadeusResponse.data.map((flight) => {
       const departureSegment = flight.itineraries[0].segments[0];
       const arrivalSegment = flight.itineraries[0].segments.slice(-1)[0];
 
@@ -101,20 +105,17 @@ router.post("/book-flight", isAuthenticated, registerFlight);
 
 router.get("/locations/:query", async (req, res) => {
   try {
-    const token = req.token;
     const { query } = req.params;
 
     if (!checkRequiredFields([query], res)) return;
 
-    const amadeusResponse = await axios.get(
-      "https://test.api.amadeus.com/v1/reference-data/locations",
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        params: { subType: "AIRPORT", keyword: query, view: "LIGHT" },
-      }
-    );
+    const amadeusResponse = await amadeus.referenceData.locations.get({
+      subType: "AIRPORT",
+      keyword: query,
+      view: "LIGHT",
+    });
 
-    const locations = amadeusResponse.data.data.map((location) => ({
+    const locations = amadeusResponse.data.map((location) => ({
       iataCode: location.iataCode,
       cityName: location.address.cityName,
       countryName: location.address.countryName,

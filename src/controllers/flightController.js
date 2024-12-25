@@ -34,8 +34,8 @@ const registerFlight = async (req, res) => {
     )
   )
     return;
+
   try {
-    // Save booking to the database
     const flight = await createFlight({
       price,
       departureAirport,
@@ -45,14 +45,14 @@ const registerFlight = async (req, res) => {
       arrivalDate,
       arrivalTime,
       duration,
-      returnDepartureDate: null,
-      returnDepartureTime: null,
-      returnArrivalDate: null,
-      returnArrivalTime: null,
-      returnDuration: null,
+      returnDepartureDate,
+      returnDepartureTime,
+      returnArrivalDate,
+      returnArrivalTime,
+      returnDuration,
     });
 
-    const flightData = await bookFlight(req.session.user.id, flight.id);
+    await bookFlight(req.session.user.id, flight.id);
 
     res
       .status(201)

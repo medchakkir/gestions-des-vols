@@ -60,10 +60,7 @@ function checkSessionUserStatus(req) {
 // Routes
 app.get("/", (req, res) => {
   const { userIsLoggedIn, user } = checkSessionUserStatus(req);
-  res.render("index", {
-    user,
-    userIsLoggedIn,
-  });
+  res.render("index", { user, userIsLoggedIn });
 });
 app.get("/about", (req, res) => {
   const { userIsLoggedIn, user } = checkSessionUserStatus(req);
@@ -91,9 +88,7 @@ app.get("/logout", (req, res) => {
 // Protected routes
 app.get("/dashboard", isAuthenticated, async (req, res) => {
   const user = req.session.user;
-  // console.log("User id:", user.id);
   const userFlights = await getFlightByUserId(user.id);
-  // console.log("User flights:", userFlights);
   res.render("dashboard", { user, userFlights });
 });
 

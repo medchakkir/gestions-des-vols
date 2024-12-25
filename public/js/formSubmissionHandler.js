@@ -168,7 +168,7 @@ function attachBookingHandler(flightId) {
         );
 
         Swal.fire("Succès", response.message, "success").then(() => {
-          window.location.href = data.redirect;
+          window.location.href = response.redirect;
         });
       } catch (error) {
         console.error("Error: ", error);
