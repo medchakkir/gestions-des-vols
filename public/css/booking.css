@@ -84,27 +84,13 @@
   border-radius: 6px;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: all 0.3s ease;
   border: none;
 }
 
 #search-button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
-  .search-bar {
-    flex-direction: column;
-  }
-
-  .text-input,
-  .select-form,
-  .date-input,
-  .number-input,
-  .flight-options {
-    width: 100%;
-  }
 }
 
 /* Section styles */
@@ -116,52 +102,49 @@
 /* Results Table */
 .results-table {
   width: 100%;
+  border-collapse: collapse;
   margin: 20px 0;
-  /* border-collapse: collapse; */
-  /* font-family: Arial, sans-serif; */
-}
-
-.result-item {
-  padding: 20px;
-  border-radius: 10px;
-  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); */
-}
-
-.result-item:nth-child(odd) {
-  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .results-table th,
 .results-table td {
-  font-size: 18px;
-  padding: 12px;
-  text-align: center;
   border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-size: 18px;
 }
 
 .results-table th {
-  background-color: #f4f4f4;
+  background-color: #003b95;
+  color: #fff;
   font-weight: bold;
 }
 
-.results-table tr:nth-child(even) {
+.results-table tr:nth-child(even) td {
   background-color: #f9f9f9;
 }
 
-.results-table td p {
-  margin: 0;
+.results-table tr:hover td {
+  background-color: #f1f1f1;
 }
 
+.results-table td {
+  color: #333;
+  background-color: #ffffff;
+}
+
+/* Button in Table Rows */
 .btn-book {
   padding: 10px 15px;
   background: linear-gradient(90deg, #003b95, #0056b3);
   color: #ffffff;
   font-weight: bold;
-  transition: all 0.3s ease;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: all 0.3s ease;
 }
 
 .btn-book:hover {
@@ -175,4 +158,19 @@
 .btn-book:focus {
   outline: 2px dashed #007bff;
   outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .text-input,
+  .select-form,
+  .date-input,
+  .number-input,
+  .flight-options {
+    width: 100%;
+  }
 }

@@ -1,155 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link
-        rel="icon"
-        type="image/x-icon"
-        href="img/favicon.png"
-        sizes="192x192"
-      />
-      <link rel="stylesheet" href="css/styles.css" />
-      <link rel="stylesheet" href="css/booking.css" />
-      <link rel="stylesheet" href="/css/dashboard.css" />
-      <title>Travel - Tableau de bord</title>
-    </head>
-    <body>
-      <%- include('_header_protected.ejs') %>
-      <main>
-        <aside class="sidebar">
-          <div class="img-container">
-            <img
-              src="img/avatar.png"
-              alt="Profile Picture"
-              class="profile-img"
-            />
-          </div>
-          <div class="info-container">
-            <div class="name"><%= user.name %></div>
-            <div class="email"><%= user.email %></div>
-          </div>
-        </aside>
-        <section class="dashboard-overview">
-          <h2>Tableau de bord</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="img/favicon.png"
+      sizes="192x192"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <title>Travel - Tableau de bord</title>
+  </head>
+  <body>
+    <%- include('_header_protected.ejs') %>
+    <main>
+      <aside class="sidebar">
+        <div class="img-container">
+          <img src="img/avatar.png" alt="Profile Picture" class="profile-img" />
+        </div>
+        <div class="info-container">
+          <div class="name"><%= user.name %></div>
+          <div class="email"><%= user.email %></div>
+        </div>
+      </aside>
+      <section class="dashboard-overview">
+        <h2>Tableau de bord</h2>
 
-          <!-- Section for One-Way Flights -->
-          <section class="one-way-flights">
-            <h3>Vols Aller Simple</h3>
-            <table class="results-table">
-              <thead>
-                <tr>
-                  <th>ID de vol</th>
-                  <th>Prix</th>
-                  <th>Départ</th>
-                  <th>Arrivée</th>
-                  <th>Durée</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% if (userFlights && Array.isArray(userFlights) &&
-                userFlights.length > 0) { %> <% userFlights .filter((flight) =>
-                !flight.returndeparturedate) // Only one-way flights
-                .forEach((flight) => { %>
-                <tr class="result-item">
-                  <td><%= flight.id %></td>
-                  <td><%= flight.price %></td>
-                  <td>
-                    <p>
-                      <strong><%= flight.departuretime %></strong> <%=
-                      flight.departureairport %>
-                    </p>
-                    <p><strong><%= flight.departuredate %></strong></p>
-                  </td>
-                  <td>
-                    <p>
-                      <strong><%= flight.arrivaltime %></strong> <%=
-                      flight.arrivalairport %>
-                    </p>
-                    <p><strong><%= flight.arrivaldate %></strong></p>
-                  </td>
-                  <td><%= flight.duration %></td>
-                </tr>
-                <% }); %> <% } else { %>
-                <tr>
-                  <td colspan="5">Aucun vol aller simple réservé.</td>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
-          </section>
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab-button active" data-tab="one-way-flights">
+            Vols Aller Simple
+          </button>
+          <button class="tab-button" data-tab="round-trip-flights">
+            Vols Aller-Retour
+          </button>
+        </div>
 
-          <!-- Section for Round-Trip Flights -->
-          <section class="round-trip-flights">
-            <h3>Vols Aller-Retour</h3>
-            <table class="results-table">
-              <thead>
-                <tr>
-                  <th rowspan="2">ID de vol</th>
-                  <th rowspan="2">Prix</th>
-                  <th colspan="3">Aller</th>
-                  <th colspan="3">Retour</th>
-                </tr>
-                <tr>
-                  <th>Départ</th>
-                  <th>Arrivée</th>
-                  <th>Durée</th>
-                  <th>Départ</th>
-                  <th>Arrivée</th>
-                  <th>Durée</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% if (userFlights && Array.isArray(userFlights) &&
-                userFlights.length > 0) { %> <% userFlights .filter((flight) =>
-                flight.returndeparturedate) // Only round-trip flights
-                .forEach((flight) => { %>
-                <tr class="result-item">
-                  <td><%= flight.id %></td>
-                  <td><%= flight.price %></td>
-                  <td>
-                    <p>
-                      <strong><%= flight.departuretime %></strong> <%=
-                      flight.departureairport %>
-                    </p>
-                    <p><strong><%= flight.departuredate %></strong></p>
-                  </td>
-                  <td>
-                    <p>
-                      <strong><%= flight.arrivaltime %></strong> <%=
-                      flight.arrivalairport %>
-                    </p>
-                    <p><strong><%= flight.arrivaldate %></strong></p>
-                  </td>
-                  <td><%= flight.duration %></td>
-                  <td>
-                    <p>
-                      <strong><%= flight.returndeparturetime %></strong> <%=
-                      flight.returnarrivalairport %>
-                    </p>
-                    <p><strong><%= flight.returndeparturedate %></strong></p>
-                  </td>
-                  <td>
-                    <p>
-                      <strong><%= flight.returnarrivaltime %></strong> <%=
-                      flight.returndepartureairport %>
-                    </p>
-                    <p><strong><%= flight.returnarrivaldate %></strong></p>
-                  </td>
-                  <td><%= flight.returnduration %></td>
-                </tr>
-                <% }); %> <% } else { %>
-                <tr>
-                  <td colspan="8">Aucun vol aller-retour réservé.</td>
-                </tr>
-                <% } %>
-              </tbody>
-            </table>
-          </section>
+        <!-- One-Way Flights Tab Content -->
+        <section id="one-way-flights" class="tab-content active">
+          <h3>Vols Aller Simple</h3>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>ID de vol</th>
+                <th>Prix</th>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Durée</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (userFlights && Array.isArray(userFlights) &&
+              userFlights.length > 0) { %> <% userFlights .filter((flight) =>
+              !flight.returndeparturedate) // Only one-way flights
+              .forEach((flight) => { %>
+              <tr class="result-item">
+                <td><%= flight.id %></td>
+                <td><%= flight.price %></td>
+                <td>
+                  <p>
+                    <strong><%= flight.departuretime %></strong> <%=
+                    flight.departureairport %>
+                  </p>
+                  <p><strong><%= flight.departuredate %></strong></p>
+                </td>
+                <td>
+                  <p>
+                    <strong><%= flight.arrivaltime %></strong> <%=
+                    flight.arrivalairport %>
+                  </p>
+                  <p><strong><%= flight.arrivaldate %></strong></p>
+                </td>
+                <td><%= flight.duration %></td>
+              </tr>
+              <% }); %> <% } else { %>
+              <tr>
+                <td colspan="5">Aucun vol aller simple réservé.</td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
         </section>
-      </main>
-    </body>
-  </html>
+
+        <!-- Round-Trip Flights Tab Content -->
+        <section id="round-trip-flights" class="tab-content">
+          <h3>Vols Aller-Retour</h3>
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th rowspan="2">ID de vol</th>
+                <th rowspan="2">Prix</th>
+                <th colspan="3">Aller</th>
+                <th colspan="3">Retour</th>
+              </tr>
+              <tr>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Durée</th>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Durée</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (userFlights && Array.isArray(userFlights) &&
+              userFlights.length > 0) { %> <% userFlights .filter((flight) =>
+              flight.returndeparturedate) // Only round-trip flights
+              .forEach((flight) => { %>
+              <tr class="result-item">
+                <td><%= flight.id %></td>
+                <td><%= flight.price %></td>
+                <td>
+                  <p>
+                    <strong><%= flight.departuretime %></strong> <%=
+                    flight.departureairport %>
+                  </p>
+                  <p><strong><%= flight.departuredate %></strong></p>
+                </td>
+                <td>
+                  <p>
+                    <strong><%= flight.arrivaltime %></strong> <%=
+                    flight.arrivalairport %>
+                  </p>
+                  <p><strong><%= flight.arrivaldate %></strong></p>
+                </td>
+                <td><%= flight.duration %></td>
+                <td>
+                  <p>
+                    <strong><%= flight.returndeparturetime %></strong> <%=
+                    flight.returnarrivalairport %>
+                  </p>
+                  <p><strong><%= flight.returndeparturedate %></strong></p>
+                </td>
+                <td>
+                  <p>
+                    <strong><%= flight.returnarrivaltime %></strong> <%=
+                    flight.returndepartureairport %>
+                  </p>
+                  <p><strong><%= flight.returnarrivaldate %></strong></p>
+                </td>
+                <td><%= flight.returnduration %></td>
+              </tr>
+              <% }); %> <% } else { %>
+              <tr>
+                <td colspan="8">Aucun vol aller-retour réservé.</td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </main>
+    <script>
+      // Tab switching logic
+      document.querySelectorAll(".tab-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab-button")
+            .forEach((btn) => btn.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-content")
+            .forEach((content) => content.classList.remove("active"));
+
+          button.classList.add("active");
+          document.getElementById(button.dataset.tab).classList.add("active");
+        });
+      });
+    </script>
+  </body>
 </html>
