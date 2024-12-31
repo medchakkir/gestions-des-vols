@@ -1,14 +1,13 @@
 import pool from "../config/db.js";
 
-const createUser = async ({ name, email, hashedPassword }) => {
+const createUser = async ({ name, email, hash }) => {
   const query = `
         INSERT INTO users (name, email, password)
         VALUES ($1, $2, $3)
         RETURNING id, name, email, password;
     `;
-  const values = [name, email, hashedPassword];
+  const values = [name, email, hash];
   const result = await pool.query(query, values);
-  // console.log(result.rows[0]);
   return result.rows[0];
 };
 
@@ -17,7 +16,6 @@ const getUserByEmail = async (email) => {
         SELECT * FROM users WHERE email = $1;
     `;
   const result = await pool.query(query, [email]);
-  // console.log(result.rows[0]);
   return result.rows[0];
 };
 
@@ -26,7 +24,6 @@ const getUserById = async (id) => {
         SELECT * FROM users WHERE id = $1;
     `;
   const result = await pool.query(query, [id]);
-  console.log("getUserById: ", result.rows[0]);
   return result.rows[0];
 };
 

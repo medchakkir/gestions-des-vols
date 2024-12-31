@@ -22,7 +22,7 @@
       <div class="auth-container">
         <div class="auth-header">
           <h3>Vérification de l'email</h3>
-          <p>Veuillez entrer votre adresse email pour vérifier votre compte.</p>
+          <p>Veuillez entrer le code OTP pour vérifier votre email.</p>
         </div>
         <form class="auth-form">
           <div class="input-container">
@@ -31,7 +31,6 @@
           </div>
           <input type="submit" value="Vérifier" />
         </form>
-        <p>OTP expired? <a href="/verification">Resend OTP</a></p>
       </div>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -40,8 +39,7 @@
         e.preventDefault();
         const formData = new FormData(e.target);
         const entries = Object.fromEntries(formData);
-        console.log(entries);
-        fetch("/users/verify_otp", {
+        fetch("/auth/verify_otp", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

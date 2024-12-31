@@ -44,7 +44,7 @@
         const entries = Object.fromEntries(formData);
         console.log("Submitted data:", entries);
 
-        fetch("/users/register", {
+        fetch("/auth/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

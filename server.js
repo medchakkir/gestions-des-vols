@@ -10,8 +10,8 @@ import { fileURLToPath } from "url";
 import db from "./src/config/db.js";
 import apiRoutes from "./src/routes/apiRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import authRoutes from "./src/routes/authRoutes.js";
 import { isAuthenticated } from "./src/middlewares/authMiddleware.js";
-import { getTokenMiddleware } from "./src/middlewares/getTokenMiddleware.js";
 import { getFlightByUserId } from "./src/models/flightModal.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 // Test de connexion à PostgreSQL
 db.connect()
@@ -43,7 +43,7 @@ app.use(
     cookie: {
       secure: false, // Set to true if using HTTPS
       httpOnly: true, // Prevent access via JavaScript
-      maxAge: 30 * 60 * 1000, // Session expiration set to 30 minutes
+      maxAge: 24 * 60 * 60 * 1000, // Session expiration set to 24 hours
     },
   })
 );
@@ -79,11 +79,6 @@ app.get("/register", (req, res) => {
 app.get("/verification", (req, res) => {
   res.render("verification");
 });
-app.get("/logout", (req, res) => {
-  req.session.destroy(() => {
-    res.redirect("/");
-  });
-});
 
 // Protected routes
 app.get("/dashboard", isAuthenticated, async (req, res) => {
@@ -96,11 +91,14 @@ app.get("/booking", isAuthenticated, (req, res) => {
   res.render("booking");
 });
 
+// Routes d'authentification
+app.use("/auth", authRoutes);
+
 // Routes des utilisateurs
 app.use("/users", userRoutes);
 
 // Routes de l'API
-app.use("/api", getTokenMiddleware, apiRoutes);
+app.use("/api", apiRoutes);
 
 // Gestion des erreurs 404
 app.use((req, res) => {
@@ -115,4 +113,6 @@ app.use((err, req, res, next) => {
 });
 
 // Démarrage du serveur
-app.listen(port, () => console.log(`Serveur en écoute sur le port ${port}.`));
+app.listen(port, () => {
+  console.log(`Serveur en écoute sur le port ${port}.`);
+});

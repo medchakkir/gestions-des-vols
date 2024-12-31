@@ -48,7 +48,7 @@
         const formData = new FormData(e.target);
         const entries = Object.fromEntries(formData);
         console.log(entries);
-        fetch("/users/login", {
+        fetch("/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,7 +59,6 @@
           .then((data) => {
             if (data.error) {
               Swal.fire("Error!", data.error, "error");
-              console.error("Login failed:", data.error);
             } else {
               Swal.fire("Success!", data.message, "success").then(() => {
                 window.location.href = data.redirect;

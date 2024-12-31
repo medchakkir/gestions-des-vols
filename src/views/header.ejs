@@ -19,7 +19,9 @@
     </ul>
     <div class="navbar-auth-buttons">
       <% if (userIsLoggedIn) { %>
-      <a href="/logout" class="auth-btn">Déconnexion</a>
+      <form>
+        <button type="submit" class="auth-btn">Déconnexion</button>
+      </form>
       <% } else { %>
       <a href="/login" class="auth-btn">Se connecter</a>
       <a href="/register" class="auth-btn">S'inscrire</a>
@@ -27,3 +29,28 @@
     </div>
   </nav>
 </header>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.querySelector("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const entries = Object.fromEntries(formData);
+  fetch("/auth/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(entries),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
+        Swal.fire("Error!", data.error, "error");
+      } else {
+        Swal.fire("Success!", data.message, "success").then(() => {
+          window.location.href = data.redirect;
+        });
+      }
+    });
+});
+</script>

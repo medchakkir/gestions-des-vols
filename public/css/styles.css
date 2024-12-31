@@ -129,10 +129,6 @@ header {
 
 /* Responsive styles */
 @media screen and (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 
   .navbar-links {
     display: none;

@@ -1,9 +1,15 @@
 import nodemailer from "nodemailer";
+import ejs from "ejs";
+import path from "path";
 import dotenv from "dotenv";
+import { fileURLToPath } from "url";
 dotenv.config();
 
-// Function to send OTP email
-const sendOtpEmail = async (name, email, otpCode) => {
+// Function to generate and send OTP email
+const generateAndSendOtp = async (name, email, req) => {
+  const otpCode = Math.floor(100000 + Math.random() * 900000); // 6-digit random number
+  const otpExpires = Date.now() + 5 * 60 * 1000; // OTP expires in 5 minutes
+
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -12,39 +18,26 @@ const sendOtpEmail = async (name, email, otpCode) => {
     },
   });
 
-  const mailTemplate = `
-    Hello ${name},
-    Please use the one-time password (OTP) below to verify your account:
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
 
-    Your OTP is: ${otpCode}
-    This code is valid for the next 10 minutes. 
-    
-    If you did not request this, please ignore this email.
+  // Path to email template
+  const templatePath = path.join(__dirname, "../views/template.ejs");
 
-    Thanks,
-    Your VoyageFinder team
-  `;
+  const mailTemplate = await ejs.renderFile(templatePath, { name, otpCode });
 
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "Your OTP Code",
-    text: mailTemplate,
+    subject: "Your OTP Code for Account Verification",
+    html: mailTemplate,
   };
 
   await transporter.sendMail(mailOptions);
-};
-
-// Function to generate and send OTP
-const generateAndSendOtp = async (name, email, req) => {
-  const otpCode = Math.floor(100000 + Math.random() * 900000);
-  const otpExpires = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
-
-  await sendOtpEmail(name, email, otpCode);
 
   // Store new OTP and expiration time in session
   req.session.otpCode = otpCode;
   req.session.otpExpires = otpExpires;
 };
 
-export { sendOtpEmail, generateAndSendOtp };
+export { generateAndSendOtp };
