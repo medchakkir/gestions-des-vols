@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import express from "express";
 import nodemailer from "nodemailer";
 import trimRequest from "../middlewares/trimMiddleware.js";
+import ejs from "ejs";
+import path from "path";
 
 const router = express.Router();
 dotenv.config();
@@ -24,11 +26,23 @@ router.post("/contact", trimRequest, async (req, res) => {
     },
   });
 
+  // Path to email template
+  const templatePath = path.join(
+    process.cwd(),
+    "/src/views/contactUsTemplate.ejs"
+  );
+
+  const mailTemplate = await ejs.renderFile(templatePath, {
+    name,
+    email,
+    message,
+  });
+
   const mailOptions = {
     from: email,
     to: process.env.EMAIL_USER,
     subject: `Contact Us Message from ${name}`,
-    text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    html: mailTemplate,
   };
 
   try {

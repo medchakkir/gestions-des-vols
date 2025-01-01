@@ -8,7 +8,7 @@ import {
 } from "../utils/flightUtils.js";
 import { checkRequiredFields } from "../utils/validationUtils.js";
 import { isAuthenticated } from "../middlewares/authMiddleware.js";
-import { registerFlight } from "../controllers/flightController.js";
+import { bookFlight, createFlight } from "../models/flightModal.js";
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ const amadeus = new Amadeus({
   clientSecret: process.env.AMADEUS_CLIENT_SECRET,
 });
 
-router.post("/search-flights", async (req, res) => {
+router.post("/search", async (req, res) => {
   try {
     const {
       originLocationCode,
@@ -101,35 +101,99 @@ router.post("/search-flights", async (req, res) => {
   }
 });
 
-router.post("/book-flight", isAuthenticated, registerFlight);
+router.post("/book", isAuthenticated, async (req, res) => {
+  const {
+    price,
+    departureAirport,
+    departureDate,
+    departureTime,
+    arrivalAirport,
+    arrivalDate,
+    arrivalTime,
+    duration,
+    returnDepartureDate,
+    returnDepartureTime,
+    returnArrivalDate,
+    returnArrivalTime,
+    returnDuration,
+  } = req.body;
 
-router.get("/locations/:query", async (req, res) => {
+  if (
+    !checkRequiredFields(
+      [
+        price,
+        departureAirport,
+        departureDate,
+        departureTime,
+        arrivalAirport,
+        arrivalDate,
+        arrivalTime,
+        duration,
+      ],
+      res
+    )
+  )
+    return;
+
   try {
-    const { query } = req.params;
-
-    if (!checkRequiredFields([query], res)) return;
-
-    const amadeusResponse = await amadeus.referenceData.locations.get({
-      subType: "AIRPORT",
-      keyword: query,
-      view: "LIGHT",
+    const flight = await createFlight({
+      price,
+      departureAirport,
+      departureDate,
+      departureTime,
+      arrivalAirport,
+      arrivalDate,
+      arrivalTime,
+      duration,
+      returnDepartureDate: returnDepartureDate || null,
+      returnDepartureTime: returnDepartureTime || null,
+      returnArrivalDate: returnArrivalDate || null,
+      returnArrivalTime: returnArrivalTime || null,
+      returnDuration: returnDuration || null,
     });
 
-    const locations = amadeusResponse.data.map((location) => ({
-      iataCode: location.iataCode,
-      cityName: location.address.cityName,
-      countryName: location.address.countryName,
-    }));
+    await bookFlight(req.session.user.id, flight.id);
 
-    res.status(200).json({ data: locations });
+    res.status(201).json({
+      message: "Vol réservé avec succès.",
+      redirect: "/dashboard",
+    });
+  } catch (error) {
+    console.error("Error booking flight:", error);
+    res.status(500).json({
+      error:
+        "Une erreur s'est produite lors de la réservation du vol. Veuillez réessayer plus tard.",
+    });
+  }
+});
+
+router.post("/pay", isAuthenticated, async (req, res) => {
+  const { flightId, paymentMethod } = req.body;
+
+  if (!flightId || !paymentMethod) {
+    return res
+      .status(400)
+      .json({ error: "Flight ID and payment method required" });
+  }
+
+  try {
+    const response = await axios.post(
+      `${process.env.PAYMENT_API_URL}/pay`,
+      { flightId, paymentMethod },
+      {
+        headers: {
+          Authorization: req.headers.authorization,
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
   } catch (error) {
     console.error(
-      "Error fetching locations:",
+      "Error processing payment:",
       error.response?.data || error.message
     );
-    res
-      .status(500)
-      .json({ error: "Failed to fetch locations from Amadeus API." });
+    res.status(500).json({ error: "Failed to process payment." });
   }
 });
 

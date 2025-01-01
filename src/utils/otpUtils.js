@@ -2,7 +2,6 @@ import nodemailer from "nodemailer";
 import ejs from "ejs";
 import path from "path";
 import dotenv from "dotenv";
-import { fileURLToPath } from "url";
 dotenv.config();
 
 // Function to generate and send OTP email
@@ -18,11 +17,11 @@ const generateAndSendOtp = async (name, email, req) => {
     },
   });
 
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-
   // Path to email template
-  const templatePath = path.join(__dirname, "../views/template.ejs");
+  const templatePath = path.join(
+    process.cwd(),
+    "/src/views/otpVerificationTemplate.ejs"
+  );
 
   const mailTemplate = await ejs.renderFile(templatePath, { name, otpCode });
 

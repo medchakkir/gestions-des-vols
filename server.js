@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 
 // local files
 import db from "./src/config/db.js";
-import apiRoutes from "./src/routes/apiRoutes.js";
+import apiRoutes from "./src/routes/flightRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import { isAuthenticated } from "./src/middlewares/authMiddleware.js";
@@ -98,7 +98,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 
 // Routes de l'API
-app.use("/api", apiRoutes);
+app.use("/flight", apiRoutes);
 
 // Gestion des erreurs 404
 app.use((req, res) => {

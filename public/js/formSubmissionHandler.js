@@ -31,7 +31,7 @@ document.getElementById("searchForm").addEventListener("submit", async (e) => {
 
   try {
     const { data: flights } = await apiRequest(
-      "/api/search-flights",
+      "/flight/search",
       "POST",
       searchParams
     );
@@ -161,11 +161,7 @@ function attachBookingHandler(flightId) {
       const bookingData = Object.fromEntries(formData);
 
       try {
-        const response = await apiRequest(
-          "/api/book-flight",
-          "POST",
-          bookingData
-        );
+        const response = await apiRequest("/flight/book", "POST", bookingData);
 
         Swal.fire("Succès", response.message, "success").then(() => {
           window.location.href = response.redirect;
