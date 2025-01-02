@@ -52,9 +52,9 @@
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          Swal.fire("Error!", data.error, "error");
+          Swal.fire("Erreur!", data.error, "error");
         } else {
-          Swal.fire("Success!", data.message, "success").then(() => {
+            Swal.fire("Succès!", data.message, "success").then(() => {
             window.location.href = data.redirect;
           });
         }

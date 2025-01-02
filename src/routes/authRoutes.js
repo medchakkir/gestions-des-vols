@@ -93,7 +93,7 @@ router.post("/verify_otp", trimRequest, async (req, res) => {
 
     res.status(200).json({
       message: "OTP vérifié avec succès. Utilisateur créé.",
-      redirect: "/login",
+      redirect: "/",
     });
   } catch (error) {
     console.error("Erreur lors de la création de l'utilisateur :", error);
@@ -135,10 +135,7 @@ router.post("/login", trimRequest, async (req, res) => {
       .status(200)
       .json({ message: "Utilisateur connecté avec succès", redirect: "/" });
   } catch (error) {
-    console.error("Erreur lors de la connexion :", {
-      message: error.message,
-      stack: error.stack,
-    });
+    console.error("Erreur lors de la connexion :", error);
     res.status(500).json({ error: "Erreur interne du serveur" });
   }
 });

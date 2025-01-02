@@ -52,12 +52,12 @@ const pool = new pg.Pool({
 });
 
 async function initializeDB() {
-  console.log("Initializing DB...");
+  console.log("Initialisation de la base de données...");
   try {
     await pool.query(createTableQuery);
-    console.log("Tables re-created successfully");
+    console.log("Tables recréées avec succès");
   } catch (error) {
-    console.error("Error:", error.message || error);
+    console.error("Error:", error);
   } finally {
     await pool.end(); // Close the pool after execution
   }

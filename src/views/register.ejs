@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,40 +9,39 @@
     <title>Travel - S'inscrire</title>
   </head>
   <body>
-      <section class="auth-section">
-        <div class="auth-container">
-          <div class="auth-header">
-            <h3>S'inscrire maintenant</h3>
-            <p>Inscrivez-vous à Travel.com et accédez à nos services.</p>
-          </div>
-          <form class="auth-form">
-            <div class="input-container">
-              <label for="name">Nom Complet</label>
-              <input type="text" name="name" id="name" required />
-            </div>
-            <div class="input-container">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" required />
-            </div>
-            <div class="input-container">
-              <label for="password">Mot de Passe</label>
-              <input type="password" name="password" id="password" required />
-            </div>
-
-            <input type="submit" value="S'inscrire" />
-            <div>
-              <p>Déjà un compte? <a href="/login">Se connecter</a></p>
-            </div>
-          </form>
+    <section class="auth-section">
+      <div class="auth-container">
+        <div class="auth-header">
+          <h3>S'inscrire maintenant</h3>
+          <p>Inscrivez-vous à Travel.com et accédez à nos services.</p>
         </div>
-      </section>
+        <form class="auth-form">
+          <div class="input-container">
+            <label for="name">Nom Complet</label>
+            <input type="text" name="name" id="name" required />
+          </div>
+          <div class="input-container">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <div class="input-container">
+            <label for="password">Mot de Passe</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+
+          <input type="submit" value="S'inscrire" />
+          <div>
+            <p>Déjà un compte? <a href="/login">Se connecter</a></p>
+          </div>
+        </form>
+      </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const entries = Object.fromEntries(formData);
-        console.log("Submitted data:", entries);
 
         fetch("/auth/register", {
           method: "POST",
@@ -54,11 +53,9 @@
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
-              Swal.fire("Error!", "Registration failed", "error");
-              console.error("Registration failed:", data.error);
+              Swal.fire("Erreur!", data.error, "error");
             } else {
-              console.log("Registration successful response:", data);
-              Swal.fire("Success!", data.message, "success").then(() => {
+              Swal.fire("Succès!", data.message, "success").then(() => {
                 window.location.href = data.redirect;
               });
             }

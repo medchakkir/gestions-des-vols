@@ -45,7 +45,8 @@ router.post("/search", async (req, res) => {
     if (flightOptions === "round-trip") {
       if (!returnDate) {
         return res.status(400).json({
-          error: "Return date is required for round-trip search.",
+          error:
+            "La date de retour est requise pour une recherche aller-retour.",
         });
       }
       params.returnDate = returnDate;
@@ -93,11 +94,10 @@ router.post("/search", async (req, res) => {
 
     res.status(200).json({ data: flights });
   } catch (error) {
-    console.error(
-      "Error fetching flights:",
-      error.response?.data || error.message
-    );
-    res.status(500).json({ error: "Failed to fetch flight offers." });
+    console.error("Error fetching flights:", error);
+    res
+      .status(500)
+      .json({ error: "Échec de la récupération des offres de vol." });
   }
 });
 
@@ -189,10 +189,7 @@ router.post("/pay", isAuthenticated, async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-    console.error(
-      "Error processing payment:",
-      error.response?.data || error.message
-    );
+    console.error("Error processing payment:", error);
     res.status(500).json({ error: "Failed to process payment." });
   }
 });

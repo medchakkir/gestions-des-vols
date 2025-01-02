@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="img/favicon.png"
-      sizes="192x192"
-    />
+    <link rel="icon" type="image/x-icon" href="img/favicon.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -39,6 +34,7 @@
         e.preventDefault();
         const formData = new FormData(e.target);
         const entries = Object.fromEntries(formData);
+        
         fetch("/auth/verify_otp", {
           method: "POST",
           headers: {
@@ -49,9 +45,9 @@
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
-              Swal.fire("Error!", data.error, "error");
+              Swal.fire("Erreur!", data.error, "error");
             } else {
-              Swal.fire("Success!", data.message, "success").then(() => {
+              Swal.fire("Succès!", data.message, "success").then(() => {
                 window.location.href = data.redirect;
               });
             }

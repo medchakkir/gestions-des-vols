@@ -1,14 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="img/favicon.png"
-      sizes="192x192"
-    />
+    <link rel="icon" type="image/x-icon" href="img/favicon.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -18,36 +13,35 @@
     <title>Travel - Login</title>
   </head>
   <body>
-      <section class="auth-section">
-        <div class="auth-container">
-          <div class="auth-header">
-            <h3>Se connecter maintenant</h3>
-            <p>
-              Connectez-vous à votre compte Travel.com et accédez à nos
-              services.
-            </p>
-          </div>
-          <form class="auth-form">
-            <div class="input-container">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" required />
-            </div>
-            <div class="input-container">
-              <label for="password">Mot de Passe</label>
-              <input type="password" name="password" id="password" required />
-            </div>
-            <input type="submit" value="Se connecter" />
-            <p>Pas de compte? <a href="/register">S'inscrire</a></p>
-          </form>
+    <section class="auth-section">
+      <div class="auth-container">
+        <div class="auth-header">
+          <h3>Se connecter maintenant</h3>
+          <p>
+            Connectez-vous à votre compte Travel.com et accédez à nos services.
+          </p>
         </div>
-      </section>
+        <form class="auth-form">
+          <div class="input-container">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <div class="input-container">
+            <label for="password">Mot de Passe</label>
+            <input type="password" name="password" id="password" required />
+          </div>
+          <input type="submit" value="Se connecter" />
+          <p>Pas de compte? <a href="/register">S'inscrire</a></p>
+        </form>
+      </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const entries = Object.fromEntries(formData);
-        console.log(entries);
+        
         fetch("/auth/login", {
           method: "POST",
           headers: {
@@ -58,9 +52,9 @@
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
-              Swal.fire("Error!", data.error, "error");
+              Swal.fire("Erreur!", data.error, "error");
             } else {
-              Swal.fire("Success!", data.message, "success").then(() => {
+              Swal.fire("Succès!", data.message, "success").then(() => {
                 window.location.href = data.redirect;
               });
             }

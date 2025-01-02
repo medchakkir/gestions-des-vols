@@ -10,7 +10,6 @@ dotenv.config();
 
 router.post("/contact", trimRequest, async (req, res) => {
   const { name, email, message } = req.body;
-  console.log("Received Data:", { name, email, message });
 
   // Validate input
   if (!name || !email || !message) {

@@ -1,19 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="img/favicon.png"
-    />
+    <link rel="icon" type="image/x-icon" href="img/favicon.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/contact.css" />
     <title>Travel - Contactez-nous</title>
   </head>
   <body>
@@ -23,7 +19,10 @@
         <div class="contact-container">
           <div class="contact-header">
             <h3>Contactez-nous</h3>
-            <p>Nous serions ravis de vous entendre ! Veuillez remplir le formulaire ci-dessous.</p>
+            <p>
+              Nous serions ravis de vous entendre ! Veuillez remplir le
+              formulaire ci-dessous.
+            </p>
           </div>
           <form class="contact-form">
             <div class="input-container">
@@ -49,14 +48,13 @@
       </section>
     </main>
     <%- include('_footer.ejs') %>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
-        console.log(data);
+        
         fetch("/users/contact", {
           method: "POST",
           headers: {
@@ -67,17 +65,9 @@
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
-              Swal.fire({
-                title: "Quelque chose s'est mal passé!",
-                text: data.error,
-                icon: "error",
-              });
+                Swal.fire("Erreur!", data.error, "error");
             } else {
-              Swal.fire({
-                title: "Envoyé avec succès!",
-                text: data.success,
-                icon: "success",
-              });
+                Swal.fire("Succès!", data.success, "success");
             }
           });
       });
