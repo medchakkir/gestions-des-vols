@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3001;
 
 // Test de connexion à PostgreSQL
 db.connect()
