@@ -1,6 +1,9 @@
 <header>
   <nav class="navbar">
-    <div class="navbar-logo">Travel</div>
+    <div class="navbar-logo">Voyage</div>
+    <div class="navbar-toggle">
+      <i class="fa fa-bars"></i>
+    </div>
     <ul class="navbar-links">
       <li><a href="/">Accueil</a></li>
       <li><a href="/about">À propos</a></li>
@@ -9,7 +12,43 @@
       <li><a href="/booking">Réservation</a></li>
     </ul>
     <div class="navbar-auth-buttons">
-      <a href="/auth/logout" class="auth-btn" id="btn-logout">Déconnexion</a>
+      <form>
+        <button type="submit" class="auth-btn">Déconnexion</button>
+      </form>
     </div>
   </nav>
 </header>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  const toggleButton = document.querySelector(".navbar-toggle");
+  const navbarContent = document.querySelector(".navbar-links");
+
+  toggleButton.addEventListener("click", () => {
+    navbarContent.classList.toggle("active");
+  });
+
+  document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const entries = Object.fromEntries(formData);
+    fetch("/auth/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(entries),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          Swal.fire("Error!", data.error, "error");
+        } else {
+          Swal.fire("Success!", data.message, "success").then(() => {
+            window.location.href = data.redirect;
+          });
+        }
+      });
+  });
+</script>
+
