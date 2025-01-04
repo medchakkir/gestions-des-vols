@@ -42,13 +42,21 @@
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          Swal.fire("Erreur!", data.error, "error");
+          Swal.fire({
+            title: "Erreur!",
+            text: data.error,
+            icon: "error",
+          });
         } else {
-          Swal.fire("Succès!", data.message, "success").then(() => {
+          Swal.fire({
+            title: "Succès!",
+            text: data.message,
+            icon: "success",
+            timer: 1500,
+          }).then(() => {
             window.location.href = data.redirect;
           });
         }
       });
   });
 </script>
-
