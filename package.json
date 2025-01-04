@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "npx jest",
+    "dev": "nodemon server.js",
     "start": "node server.js",
-    "start:dev": "nodemon server.js",
     "init-db": "node ./src/config/initDb.js"
   },
   "keywords": [],

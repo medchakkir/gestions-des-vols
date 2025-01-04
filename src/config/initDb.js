@@ -4,9 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const createTableQuery = `
-DROP TABLE IF EXISTS flights CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
-
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
@@ -16,6 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS flights CASCADE;
 CREATE TABLE IF NOT EXISTS flights (
   id SERIAL PRIMARY KEY,
   price DECIMAL(10, 2),
@@ -35,6 +34,7 @@ CREATE TABLE IF NOT EXISTS flights (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS bookings CASCADE;
 CREATE TABLE IF NOT EXISTS bookings (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id),
