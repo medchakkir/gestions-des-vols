@@ -1,14 +1,10 @@
-import pg from "pg";
+// Need to customize your config?:
+import { createPool } from "@vercel/postgres";
 import dotenv from "dotenv";
-
 dotenv.config();
 
-const pool = new pg.Pool({
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+const pool = createPool({
+  connectionString: process.env.DB_STRING,
 });
 
 export default pool;

@@ -23,7 +23,7 @@ const port = process.env.PORT || 3001;
 
 // Test de connexion à PostgreSQL
 db.connect()
-  .then(() => console.log("Connecté à la base de données PostgreSQL."))
+  .then(() => console.log("Connecté à la base de données Neon PostgreSQL."))
   .catch((err) =>
     console.error("Erreur de connexion à la base de données:", err)
   );
