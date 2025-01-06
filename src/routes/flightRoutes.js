@@ -6,7 +6,10 @@ import {
   formatTime,
   formatDuration,
 } from "../utils/flightUtils.js";
-import { checkRequiredFields } from "../utils/validationUtils.js";
+import {
+  checkRequiredFields,
+  validateRequiredFields,
+} from "../utils/validationUtils.js";
 import { isAuthenticated } from "../middlewares/authMiddleware.js";
 import { bookFlight, createFlight } from "../models/flightModal.js";
 
@@ -101,41 +104,121 @@ router.post("/search", async (req, res) => {
   }
 });
 
-router.post("/book", isAuthenticated, async (req, res) => {
-  const {
-    price,
-    departureAirport,
-    departureDate,
-    departureTime,
-    arrivalAirport,
-    arrivalDate,
-    arrivalTime,
-    duration,
-    returnDepartureDate,
-    returnDepartureTime,
-    returnArrivalDate,
-    returnArrivalTime,
-    returnDuration,
-  } = req.body;
-
-  if (
-    !checkRequiredFields(
-      [
-        price,
-        departureAirport,
-        departureDate,
-        departureTime,
-        arrivalAirport,
-        arrivalDate,
-        arrivalTime,
-        duration,
-      ],
-      res
-    )
-  )
-    return;
-
+router.get("/pay", isAuthenticated, (req, data) => {
   try {
+    const {
+      price,
+      departureAirport,
+      departureDate,
+      departureTime,
+      arrivalAirport,
+      arrivalDate,
+      arrivalTime,
+      duration,
+      returnDepartureDate,
+      returnDepartureTime,
+      returnArrivalDate,
+      returnArrivalTime,
+      returnDuration,
+    } = req.body;
+
+    // Validate required fields
+    const requiredFields = [
+      ["price", price],
+      ["departureAirport", departureAirport],
+      ["departureDate", departureDate],
+      ["departureTime", departureTime],
+      ["arrivalAirport", arrivalAirport],
+      ["arrivalDate", arrivalDate],
+      ["arrivalTime", arrivalTime],
+      ["duration", duration],
+    ];
+
+    if (!validateRequiredFields(requiredFields, res)) return;
+
+    // Validate return flight data if it's a round trip
+    if (returnDepartureDate) {
+      const returnFields = [
+        ["returnDepartureTime", returnDepartureTime],
+        ["returnArrivalDate", returnArrivalDate],
+        ["returnArrivalTime", returnArrivalTime],
+        ["returnDuration", returnDuration],
+      ];
+      if (!validateRequiredFields(returnFields, res)) return;
+    }
+
+    // render payment page
+    const flight = {
+      price,
+      departureAirport,
+      departureDate,
+      departureTime,
+      arrivalAirport,
+      arrivalDate,
+      arrivalTime,
+      duration,
+      returnDepartureDate: returnDepartureDate || null,
+      returnDepartureTime: returnDepartureTime || null,
+      returnArrivalDate: returnArrivalDate || null,
+      returnArrivalTime: returnArrivalTime || null,
+      returnDuration: returnDuration || null,
+    };
+
+    const isRoundTrip = !!flight.returnDepartureDate;
+    const paypalClientId = process.env.PAYPAL_CLIENT_ID;
+
+    res.render("payment", { flight, isRoundTrip, paypalClientId });
+  } catch (error) {
+    console.error("Error rendering payment page:", error);
+    res.status(500).json({
+      error: "Une erreur s'est produite lors du traitement du paiement.",
+    });
+  }
+});
+
+router.post("/book", isAuthenticated, async (req, res) => {
+  try {
+    const {
+      price,
+      departureAirport,
+      departureDate,
+      departureTime,
+      arrivalAirport,
+      arrivalDate,
+      arrivalTime,
+      duration,
+      returnDepartureDate,
+      returnDepartureTime,
+      returnArrivalDate,
+      returnArrivalTime,
+      returnDuration,
+    } = req.body;
+
+    // Validate required fields
+    const requiredFields = [
+      ["price", price],
+      ["departureAirport", departureAirport],
+      ["departureDate", departureDate],
+      ["departureTime", departureTime],
+      ["arrivalAirport", arrivalAirport],
+      ["arrivalDate", arrivalDate],
+      ["arrivalTime", arrivalTime],
+      ["duration", duration],
+    ];
+
+    if (!validateRequiredFields(requiredFields, res)) return;
+
+    // Validate return flight data if it's a round trip
+    if (returnDepartureDate) {
+      const returnFields = [
+        ["returnDepartureTime", returnDepartureTime],
+        ["returnArrivalDate", returnArrivalDate],
+        ["returnArrivalTime", returnArrivalTime],
+        ["returnDuration", returnDuration],
+      ];
+      if (!validateRequiredFields(returnFields, res)) return;
+    }
+
     const flight = await createFlight({
       price,
       departureAirport,
@@ -164,33 +247,6 @@ router.post("/book", isAuthenticated, async (req, res) => {
       error:
         "Une erreur s'est produite lors de la réservation du vol. Veuillez réessayer plus tard.",
     });
-  }
-});
-
-router.post("/pay", isAuthenticated, async (req, res) => {
-  const { flightId, paymentMethod } = req.body;
-
-  if (!flightId || !paymentMethod) {
-    return res
-      .status(400)
-      .json({ error: "Flight ID and payment method required" });
-  }
-
-  try {
-    const response = await axios.post(
-      `${process.env.PAYMENT_API_URL}/pay`,
-      { flightId, paymentMethod },
-      {
-        headers: {
-          Authorization: req.headers.authorization,
-        },
-      }
-    );
-
-    res.status(200).json(response.data);
-  } catch (error) {
-    console.error("Error processing payment:", error);
-    res.status(500).json({ error: "Failed to process payment." });
   }
 });
 

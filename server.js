@@ -91,6 +91,89 @@ app.get("/booking", isAuthenticated, (req, res) => {
   res.render("booking");
 });
 
+app.get("/pay", isAuthenticated, (req, res) => {
+  console.log(req.query);
+
+  const {
+    price,
+    departureAirport,
+    departureDate,
+    departureTime,
+    arrivalAirport,
+    arrivalDate,
+    arrivalTime,
+    duration,
+    returnDepartureDate,
+    returnDepartureTime,
+    returnArrivalDate,
+    returnArrivalTime,
+    returnDuration,
+  } = req.query;
+
+  const isRoundTrip =
+    returnDepartureDate &&
+    returnDepartureTime &&
+    returnArrivalDate &&
+    returnArrivalTime &&
+    returnDuration;
+
+  // Validate common parameters
+  if (
+    !price ||
+    !departureAirport ||
+    !departureDate ||
+    !departureTime ||
+    !arrivalAirport ||
+    !arrivalDate ||
+    !arrivalTime ||
+    !duration
+  ) {
+    return res
+      .status(400)
+      .json({ message: "Missing required parameters for a one-way flight" });
+  }
+
+  // For round-trip flights, ensure return parameters are also present
+  if (
+    isRoundTrip &&
+    (!returnDepartureDate ||
+      !returnDepartureTime ||
+      !returnArrivalDate ||
+      !returnArrivalTime ||
+      !returnDuration)
+  ) {
+    return res
+      .status(400)
+      .json({ message: "Missing required parameters for a round-trip flight" });
+  }
+
+  // Prepare the response
+  const flightData = {
+    price,
+    departureAirport,
+    departureDate,
+    departureTime,
+    arrivalAirport,
+    arrivalDate,
+    arrivalTime,
+    duration,
+  };
+
+  if (isRoundTrip) {
+    flightData.returnDetails = {
+      returnDepartureDate,
+      returnDepartureTime,
+      returnArrivalDate,
+      returnArrivalTime,
+      returnDuration,
+    };
+  }
+
+  const paypalClientId = process.env.PAYPAL_CLIENT_ID;
+
+  res.render("payment", { flight: flightData, isRoundTrip, paypalClientId });
+});
+
 // Routes d'authentification
 app.use("/auth", authRoutes);
 

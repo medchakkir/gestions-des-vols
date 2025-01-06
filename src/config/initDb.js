@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS users (
   name VARCHAR(255),
   email VARCHAR(255) UNIQUE,
   password VARCHAR(255),
-  verified BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -57,7 +56,7 @@ async function initializeDB() {
     await pool.query(createTableQuery);
     console.log("Tables recréées avec succès");
   } catch (error) {
-    console.error("Error:", error);
+    console.error(error);
   } finally {
     await pool.end(); // Close the pool after execution
   }

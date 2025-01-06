@@ -8,4 +8,17 @@ function checkRequiredFields(fields, res) {
   return true;
 }
 
-export { checkRequiredFields };
+function validateRequiredFields(fields, res) {
+  const missingFields = fields
+    .filter(([key, value]) => !value)
+    .map(([key]) => key);
+  if (missingFields.length > 0) {
+    res.status(400).json({
+      error: `Missing required fields: ${missingFields.join(", ")}`,
+    });
+    return false;
+  }
+  return true;
+}
+
+export { checkRequiredFields, validateRequiredFields };

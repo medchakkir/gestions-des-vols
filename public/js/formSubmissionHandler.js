@@ -38,7 +38,7 @@ document.getElementById("searchForm").addEventListener("submit", async (e) => {
     renderResults(flights);
   } catch (error) {
     console.error("Flight search error:", error);
-    Swal.fire("Erreur", "Flight search failed", "error");
+    Swal.fire("Erreur", "La recherche de vol a échoué", "error");
   }
 });
 
@@ -161,14 +161,18 @@ function attachBookingHandler(flightId) {
       const bookingData = Object.fromEntries(formData);
 
       try {
-        const response = await apiRequest("/flight/book", "POST", bookingData);
+        // Convert bookingData to query parameters
+        const params = new URLSearchParams(bookingData).toString();
 
-        Swal.fire("Succès", response.message, "success").then(() => {
-          window.location.href = response.redirect;
-        });
+        // Redirect the user to the payment page
+        window.location.href = `/pay?${params}`;
       } catch (error) {
-        console.error("Error: ", error);
-        Swal.fire("Erreur", error.message, "error");
+        console.error("Error loading payment page: ", error);
+        Swal.fire(
+          "Erreur",
+          "Une erreur est survenue lors de la réservation",
+          "error"
+        );
       }
     });
 }
