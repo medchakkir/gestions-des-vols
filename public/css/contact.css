@@ -1,18 +1,19 @@
-
-/* Contact section styles */
+/* Contact Section Styles */
 .contact-section {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 38px 0;
+  padding: 38px 20px; /* Added horizontal padding for smaller screens */
+  background-color: #f5f5f5; /* Light background for contrast */
 }
 
 .contact-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px 10px;
+  padding: 30px 20px;
   width: 600px;
+  max-width: 100%; /* Ensures it doesn't exceed screen width on smaller devices */
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -21,11 +22,14 @@
 .contact-header h3 {
   font-size: 24px;
   font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center; /* Center-align header text */
 }
 
 .contact-header p {
   font-size: 14px;
   font-weight: 400;
+  text-align: center; /* Center-align description */
 }
 
 .contact-form {
@@ -42,15 +46,23 @@
 .contact-form label {
   font-size: 16px;
   font-weight: 500;
+  margin-bottom: 5px;
 }
 
 .contact-form input,
 .contact-form textarea {
-  padding: 10px;
-  border: 1px solid #999999;
+  padding: 12px; /* Slightly increased padding for better UX */
+  border: 1px solid #cccccc;
   border-radius: 4px;
   font-size: 16px;
   width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #003b95; /* Highlight input when focused */
+  outline: none;
 }
 
 .contact-form textarea {
@@ -62,12 +74,72 @@
   color: #ffffff;
   border: none;
   cursor: pointer;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-radius: 4px;
   font-size: 16px;
   font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .contact-form input[type="submit"]:hover {
   background-color: #002366;
+  transform: scale(1.02); /* Slight scaling effect on hover */
+}
+
+/* Responsive Styles */
+
+/* Tablet Screens (768px and below) */
+@media screen and (max-width: 768px) {
+  .contact-section {
+    padding: 30px 15px; /* Adjusted padding for tablets */
+  }
+
+  .contact-container {
+    width: 100%; /* Take full width of screen */
+    padding: 20px;
+  }
+
+  .contact-header h3 {
+    font-size: 22px; /* Slightly smaller heading */
+  }
+
+  .contact-header p {
+    font-size: 13px; /* Adjust font size for description */
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 14px; /* Smaller font for inputs */
+  }
+
+  .contact-form input[type="submit"] {
+    padding: 10px 18px; /* Adjust button size */
+    font-size: 14px; /* Adjust font size */
+  }
+}
+
+/* Phone Screens (480px and below) */
+@media screen and (max-width: 480px) {
+  .contact-section {
+    padding: 20px 10px; /* Reduced padding for narrow screens */
+  }
+
+  .contact-header h3 {
+    font-size: 20px; /* Smaller heading */
+  }
+
+  .contact-header p {
+    font-size: 12px; /* Adjust font size for description */
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 10px; /* Reduced padding for inputs */
+    font-size: 13px; /* Smaller font size */
+  }
+
+  .contact-form input[type="submit"] {
+    padding: 10px 16px;
+    font-size: 13px; /* Adjust button font size */
+  }
 }

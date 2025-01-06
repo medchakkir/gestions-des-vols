@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-logo">Voyage</div>
     <div class="navbar-toggle">
-      <i class="fa fa-bars"></i>
+      <i class="fa-solid fa-bars"></i>
     </div>
     <ul class="navbar-links">
       <% if (userIsLoggedIn) { %>
@@ -20,7 +20,7 @@
     <div class="navbar-auth-buttons">
       <% if (userIsLoggedIn) { %>
       <form>
-        <button type="submit" class="auth-btn">Déconnexion</button>
+        <button type="submit" class="submit-btn">Déconnexion</button>
       </form>
       <% } else { %>
       <a href="/login" class="auth-btn">Se connecter</a>
@@ -32,10 +32,12 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   const toggleButton = document.querySelector(".navbar-toggle");
-  const navbarContent = document.querySelector(".navbar-links");
+  const navbarLinks = document.querySelector(".navbar-links");
+  const navbarAuthButtons = document.querySelector(".navbar-auth-buttons");
 
   toggleButton.addEventListener("click", () => {
-    navbarContent.classList.toggle("active");
+    navbarLinks.classList.toggle("active");
+    navbarAuthButtons.classList.toggle("active");
   });
 
   document.querySelector("form").addEventListener("submit", (e) => {
@@ -54,7 +56,12 @@
         if (data.error) {
           Swal.fire("Erreur!", data.error, "error");
         } else {
-            Swal.fire("Succès!", data.message, "success").then(() => {
+          Swal.fire({
+            title: "Succès!",
+            text: data.message,
+            icon: "success",
+            timer: 1500,
+          }).then(() => {
             window.location.href = data.redirect;
           });
         }

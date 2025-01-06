@@ -20,6 +20,7 @@
       transparent 1px,
       transparent 40px
     );
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,31 +38,9 @@
   width: 100%;
 }
 
-.back-link {
-  position: absolute;
-  top: 40px;
-  left: 20px;
-  /* text-align: left; */
-  margin-bottom: 15px;
-}
-
-.back-link a {
-  color: #003b95;
-  text-decoration: none;
-  font-size: 14px;
-  border-bottom: 1px solid #003b95;
-  transition: color 0.3s, border-color 0.3s;
-}
-
-.back-link a:hover {
-  color: #002366;
-  border-color: #002366;
-}
-
 .auth-header h3 {
-  font-size: 34px;
+  font-size: 35px;
   color: #003b95;
-  /* margin-bottom: 10px; */
 }
 
 .auth-header p {
@@ -118,30 +97,10 @@
   transform: scale(0.98);
 }
 
-.signup-prompt {
-  font-size: 14px;
-  color: #555555;
-  text-align: center;
-}
-
-.signup-prompt a {
-  color: #003b95;
-  text-decoration: none;
-  border-bottom: 1px solid #003b95;
-  transition: color 0.3s, border-color 0.3s;
-}
-
-.signup-prompt a:hover {
-  color: #002366;
-  border-color: #002366;
-}
-
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .auth-container {
     padding: 20px;
-    /* box-shadow: none; */
-    /* border-radius: 0; */
   }
 
   .auth-btn {

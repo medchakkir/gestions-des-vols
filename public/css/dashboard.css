@@ -1,66 +1,12 @@
 /* Dashboard styles */
-main {
-  display: flex;
-}
 
 main > * {
   padding-top: 30px;
 }
 
-/* Sidebar */
-aside {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #ffffff;
-  background-color: #444;
-  width: 300px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  padding: 20px;
-}
-
-aside .img-container {
-  width: 225px;
-  height: 225px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 4px solid #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-aside .img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-aside .info-container {
-  display: flex;
-  flex-direction: column;
-  padding: 16px 0;
-  text-align: center;
-}
-
-.info-container .name {
-  font-size: 24px;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.info-container .email {
-  font-size: 18px;
-  font-weight: 400;
-  color: #cccccc;
-}
-
-.info-container .name,
-.info-container .email {
-  margin: 5px 0;
-}
-
 /* Dashboard Overview */
 .dashboard-overview {
-  width: 90%;
+  /* width: 90%; */
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -115,7 +61,7 @@ aside .info-container {
 
 /* Table Styles */
 .results-table {
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
   margin-top: 10px;
 }

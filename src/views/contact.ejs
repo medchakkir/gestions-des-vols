@@ -4,48 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="css/_general.css" />
+    <link rel="stylesheet" href="css/_header.css" />
+    <link rel="stylesheet" href="css/_footer.css" />
     <link rel="stylesheet" href="css/contact.css" />
     <title>Travel - Contactez-nous</title>
   </head>
   <body>
     <%- include('_header.ejs') %>
-    <main>
-      <section class="contact-section">
-        <div class="contact-container">
-          <div class="contact-header">
-            <h3>Contactez-nous</h3>
-            <p>
-              Nous serions ravis de vous entendre ! Veuillez remplir le
-              formulaire ci-dessous.
-            </p>
-          </div>
-          <form class="contact-form">
-            <div class="input-container">
-              <label for="name">Nom</label>
-              <input type="text" name="name" id="name" required />
-            </div>
-            <div class="input-container">
-              <label for="email">Email</label>
-              <input type="email" name="email" id="email" required />
-            </div>
-            <div class="input-container">
-              <label for="message">Message</label>
-              <textarea
-                name="message"
-                id="message"
-                rows="5"
-                required
-              ></textarea>
-            </div>
-            <input type="submit" value="Envoyer le message" />
-          </form>
+    <main class="contact-section">
+      <div class="contact-container">
+        <div class="contact-header">
+          <h3>Contactez-nous</h3>
+          <p>
+            Nous serions ravis de vous entendre ! Veuillez remplir le formulaire.
+            
+          </p>
         </div>
-      </section>
+        <form class="contact-form">
+          <div class="input-container">
+            <label for="name">Nom</label>
+            <input type="text" name="name" id="name" required />
+          </div>
+          <div class="input-container">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required />
+          </div>
+          <div class="input-container">
+            <label for="message">Message</label>
+            <textarea name="message" id="message" rows="5" required></textarea>
+          </div>
+          <input type="submit" value="Envoyer le message" />
+        </form>
+      </div>
     </main>
     <%- include('_footer.ejs') %>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -54,7 +52,7 @@
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
-        
+
         fetch("/users/contact", {
           method: "POST",
           headers: {
@@ -65,9 +63,9 @@
           .then((res) => res.json())
           .then((data) => {
             if (data.error) {
-                Swal.fire("Erreur!", data.error, "error");
+              Swal.fire("Erreur!", data.error, "error");
             } else {
-                Swal.fire("Succès!", data.success, "success");
+              Swal.fire("Succès!", data.success, "success");
             }
           });
       });

@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+
+/* General reset and box-sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  color: #999999;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+html,
+body {
+  /* Ensure footer stays at the bottom */
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  color: #333333;
+  background-color: #f0f3f5;
+  font-family: "Poppins", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+main {
+  flex: 1;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #003b95;
+  /* border-radius: 8px; */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}

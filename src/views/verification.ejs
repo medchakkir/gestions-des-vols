@@ -4,16 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/auth.css" />
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="css/_general.css" />
+    <link rel="stylesheet" href="css/_header.css" />
+    <link rel="stylesheet" href="css/_footer.css" />
+    <link rel="stylesheet" href="css/verification.css" />
     <title>Travel - Email verification</title>
   </head>
   <body>
-    <section class="auth-section">
+    <main class="auth-section">
       <div class="auth-container">
         <div class="auth-header">
           <h3>Vérification de l'email</h3>
@@ -21,20 +26,27 @@
         </div>
         <form class="auth-form">
           <div class="input-container">
-            <label for="otp">OTP Code</label>
-            <input type="text" name="otp" id="otp" required />
+            <label for="otp">Code OTP</label>
+            <input
+              type="text"
+              name="otp"
+              id="otp"
+              placeholder="Entrez votre code OTP"
+              required
+            />
           </div>
-          <input type="submit" value="Vérifier" />
+          <input type="submit" value="Vérifier" class="auth-btn" />
         </form>
       </div>
-    </section>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const entries = Object.fromEntries(formData);
-        
+
         fetch("/auth/verify_otp", {
           method: "POST",
           headers: {

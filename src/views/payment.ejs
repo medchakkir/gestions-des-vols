@@ -4,12 +4,163 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="img/favicon.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/auth.css" />
-    <title>Travel - Login</title>
+
+    <link rel="stylesheet" href="css/_general.css" />
+    <link rel="stylesheet" href="css/_header.css" />
+    <link rel="stylesheet" href="css/_footer.css" />
+    <link rel="stylesheet" href="css/payment.css" />
+    <title>Travel - Paiement</title>
   </head>
+
+  <body>
+    <main>
+      <form>
+        <div class="auth-container">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Prix</th>
+                <th colspan="3">Aller</th>
+                <% if (isRoundTrip) { %>
+                <th colspan="3">Retour</th>
+                <% } %>
+              </tr>
+              <tr>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Durée</th>
+                <% if (isRoundTrip) { %>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Durée</th>
+                <% } %>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= flight.price %></td>
+                <td>
+                  <p>
+                    <strong><%= flight.departureTime %></strong> <%=
+                    flight.departureAirport %>
+                  </p>
+                  <p><strong><%= flight.departureDate %></strong></p>
+                </td>
+                <td>
+                  <p>
+                    <strong><%= flight.arrivalTime %></strong> <%=
+                    flight.arrivalAirport %>
+                  </p>
+                  <p><strong><%= flight.arrivalDate %></strong></p>
+                </td>
+                <td><%= flight.duration %></td>
+                <% if (isRoundTrip) { %>
+                <td>
+                  <p>
+                    <strong><%= flight.departureTime %></strong> <%=
+                    flight.departureAirport %>
+                  </p>
+                  <p><strong><%= flight.departureDate %>"</strong></p>
+                </td>
+                <td>
+                  <p>
+                    <strong><%= flight.arrivalTime %></strong> <%=
+                    flight.arrivalAirport %>
+                  </p>
+                  <p><strong><%= flight.arrivalDate %></strong></p>
+                </td>
+                <td><%= flight.duration %></td>
+                <% } %>
+              </tr>
+            </tbody>
+          </table>
+          <div id="paypal-container"></div>
+        </div>
+      </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://sandbox.paypal.com/sdk/js?client-id=<%= paypalClientId %>&components=buttons&currency=EUR"></script>
+    <script>
+      paypal
+        .Buttons({
+          createOrder: function (data, actions) {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: "<%= flight.price %>",
+                  },
+                },
+              ],
+            });
+          },
+          onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+              try {
+                // collect data from the table
+                const flightData = {
+                  departureTime: "<%= flight.departureTime %>",
+                  departureDate: "<%= flight.departureDate %>",
+                  departureAirport: "<%= flight.departureAirport %>",
+                  arrivalTime: "<%= flight.arrivalTime %>",
+                  arrivalDate: "<%= flight.arrivalDate %>",
+                  arrivalAirport: "<%= flight.arrivalAirport %>",
+                  duration: "<%= flight.duration %>",
+                  price: "<%= flight.price %>",
+                };
+
+                // if round-trip, include return data
+                if ("<%= isRoundTrip %>") {
+                  flightData.returnDepartureTime =
+                    "<%= flight.returnDepartureTime %>";
+                  flightData.returnDepartureDate =
+                    "<%= flight.returnDepartureDate %>";
+                  flightData.returnArrivalTime =
+                    "<%= flight.returnArrivalTime %>";
+                  flightData.returnArrivalDate =
+                    "<%= flight.returnArrivalDate %>";
+                  flightData.returnDuration = "<%= flight.returnDuration %>";
+                }
+
+                fetch("/flight/book", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(flightData),
+                })
+                  .then((res) => res.json())
+                  .then((data) => {
+                    if (data.error) {
+                      console.error(data.error);
+                      Swal.fire("Erreur!", data.error, "error");
+                    } else {
+                      console.log(data.message);
+                      Swal.fire({
+                        title: "Succès!",
+                        text: data.message,
+                        icon: "success",
+                        timer: 1500,
+                      }).then(() => {
+                        window.location.href = data.redirect || "/dashboard";
+                      });
+                    }
+                  })
+                  .catch((error) => {
+                    console.error("Error processing payment:", error);
+                    Swal.fire(
+                      "Error!",
+                      "Something went wrong. Please try again.",
+                      "error"
+                    );
+                  });
+              } catch (error) {
+                console.error("Error processing payment:", error);
+              }
+            });
+          },
+        })
+        .render("#paypal-container");
+    </script>
+  </body>
 </html>

@@ -162,15 +162,57 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .search-bar {
-    flex-direction: column;
-  }
-
   .text-input,
   .select-form,
   .date-input,
   .number-input,
   .flight-options {
     width: 100%;
+  }
+} 
+.results-table {
+  font-size: 14px;
+}
+
+.results-table th,
+.results-table td {
+  padding: 8px;
+}
+
+.results-table th {
+  font-size: 16px;
+}
+
+.btn-book {
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
+/* Mobile Specific Styling */
+@media (max-width: 600px) {
+  .search-bar {
+    gap: 8px;
+  }
+
+  .text-input input,
+  .select-form select,
+  .date-input input,
+  .number-input input {
+    font-size: 12px;
+  }
+
+  .flight-options label {
+    font-size: 12px;
+  }
+
+  .results-table th,
+  .results-table td {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  .btn-book {
+    font-size: 12px;
+    padding: 6px 8px;
   }
 }

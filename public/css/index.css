@@ -1,0 +1,218 @@
+/* --- Header Banner Section --- */
+.header-banner {
+  color: #ffffff;
+  background: linear-gradient(rgb(0, 59, 149), rgba(0, 59, 149, 0.9));
+  padding: 40px;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  text-align: center;
+}
+
+.banner-content {
+  /* Restrict width for readability */
+  /* max-width: 800px;  */
+}
+
+.banner-content h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  /* margin-bottom: 20px; */
+}
+
+.banner-content p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  line-height: 1.8;
+  color: #dcdcdc;
+}
+
+.banner-content a {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #003b95;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.banner-content a:hover {
+  background-color: #e0efff;
+  transform: scale(0.95);
+}
+
+.banner-content a span {
+  margin-left: 10px;
+}
+
+/* --- Responsive Styles --- */
+
+/* Tablet Screens (768px and below) */
+@media screen and (max-width: 768px) {
+
+  .banner-content h1 {
+    font-size: 2.5rem; /* Adjust font size for tablet */
+    letter-spacing: 1px;
+  }
+
+  .banner-content p {
+    font-size: 1.3rem; /* Adjust paragraph font size */
+  }
+}
+
+/* Phone Screens (480px and below) */
+@media screen and (max-width: 480px) {
+  .header-banner {
+    padding: 30px 20px; /* Reduce padding further for phones */
+  }
+
+  .banner-content h1 {
+    font-size: 2rem; /* Smaller font size for phone */
+    letter-spacing: 1px;
+  }
+
+  .banner-content p {
+    font-size: 1.1rem; /* Adjust paragraph font size */
+  }
+}
+
+/* --- Popular Destinations Section --- */
+.popular-destinations {
+  padding: 50px 20px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.popular-destinations h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #003b95;
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.destination-item {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.destination-item img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* height: 200px; */
+  object-fit: cover;
+}
+
+.destination-item h3 {
+  font-size: 1.5rem;
+  margin: 15px 0;
+  color: #003b95;
+}
+
+.destination-item p {
+  padding: 0 15px 15px;
+  color: #666666;
+  font-size: 1rem;
+}
+
+/* --- Why Choose Us Section --- */
+.why-choose-us {
+  padding: 50px 20px;
+  text-align: center;
+  background: #f9f9f9;
+}
+
+.why-choose-us h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #003b95;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.feature {
+  width: 300px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.feature i {
+  font-size: 2.5rem;
+  color: #ffb700;
+  margin-bottom: 15px;
+}
+
+.feature h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #003b95;
+}
+
+.feature p {
+  color: #666666;
+  font-size: 1rem;
+}
+
+/* --- Customer Reviews Section --- */
+.customer-reviews {
+  padding: 50px 20px;
+  text-align: center;
+  background: #003b95;
+  color: #ffffff;
+}
+
+.customer-reviews h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.reviews {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.review {
+  width: 300px;
+  padding: 20px;
+  background: #ffffff;
+  color: #333333;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.review p {
+  font-style: italic;
+  font-size: 1.2rem;
+}
+
+.review h4 {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #003b95;
+}

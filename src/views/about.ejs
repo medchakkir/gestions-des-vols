@@ -4,55 +4,99 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="css/_general.css" />
+    <link rel="stylesheet" href="css/_header.css" />
+    <link rel="stylesheet" href="css/_footer.css" />
     <link rel="stylesheet" href="css/about.css" />
     <title>Travel - À propos de nous</title>
   </head>
   <body>
     <%- include('_header.ejs') %>
-    <main>
-      <section>
+    <main class="about-page">
+      <section class="about-section">
         <h2>Notre mission</h2>
         <p>
-          Notre mission est de fournir les meilleurs services de gestion de vols
-          à nos clients.
+          Chez Travel.com, notre mission est de fournir à nos clients des
+          services de gestion de vols de premier ordre qui dépassent leurs
+          attentes. Nous nous engageons à offrir une expérience de voyage fluide
+          et agréable, grâce à des solutions innovantes, des outils performants,
+          et une attention constante à vos besoins. Que vous soyez en
+          déplacement pour affaires ou pour le plaisir, nous sommes là pour vous
+          accompagner à chaque étape de votre voyage.
         </p>
       </section>
-      <section>
+      <section class="about-section">
         <h2>Notre équipe</h2>
         <p>
-          Nous avons une équipe dédiée de professionnels passionnés par
-          l'aviation et le service client.
+          Notre équipe est composée de professionnels expérimentés et passionnés
+          par l'aviation, le service client, et la technologie. Nous croyons
+          fermement que le succès repose sur l'expertise collective,
+          l'engagement personnel, et l'innovation. Chaque membre de notre équipe
+          apporte une richesse de connaissances et d'expériences, ce qui nous
+          permet de répondre aux attentes de nos clients avec efficacité et
+          créativité. Ensemble, nous travaillons pour transformer vos projets de
+          voyage en une réalité sans stress.
         </p>
       </section>
-      <section>
+      <section class="about-section">
         <h2>Notre histoire</h2>
         <p>
-          Fondée en 2010, Travel.com est passée d'une petite startup à un leader
-          dans la gestion de vols.
+          Fondée en 2010, Travel.com a démarré en tant que petite startup avec
+          une grande vision : simplifier la réservation de vols pour les
+          voyageurs du monde entier. En combinant innovation technologique et
+          service client exceptionnel, nous avons grandi pour devenir un leader
+          dans l'industrie de la gestion de vols. Aujourd'hui, nous sommes fiers
+          de collaborer avec des compagnies aériennes et des voyageurs de tous
+          horizons, tout en restant fidèles à nos valeurs fondamentales
+          d'excellence et de fiabilité.
         </p>
       </section>
-      <section>
+      <section class="about-section">
         <h2>Nos valeurs</h2>
+        <p>
+          Nos valeurs fondamentales guident tout ce que nous faisons et
+          reflètent notre engagement envers nos clients, nos partenaires, et
+          notre équipe. Voici les principes qui nous définissent :
+        </p>
         <ul>
-          <li>Satisfaction client</li>
-          <li>Intégrité</li>
-          <li>Innovation</li>
-          <li>Travail d'équipe</li>
+          <li>
+            <strong>Satisfaction client :</strong> Placer nos clients au cœur de
+            toutes nos décisions.
+          </li>
+          <li>
+            <strong>Intégrité :</strong> Agir avec transparence, honnêteté, et
+            respect dans toutes nos interactions.
+          </li>
+          <li>
+            <strong>Innovation :</strong> Anticiper les besoins de demain grâce
+            à des solutions créatives et technologiques.
+          </li>
+          <li>
+            <strong>Travail d'équipe :</strong> Favoriser la collaboration pour
+            atteindre nos objectifs communs.
+          </li>
         </ul>
       </section>
-      <section>
+      <section class="about-section">
         <h2>Contactez-nous</h2>
         <p>
-          Si vous avez des questions, n'hésitez pas à
-          <a href="/contact">nous contacter</a>.
+          Nous sommes toujours ravis d'entrer en contact avec nos clients. Si
+          vous avez des questions, des suggestions, ou souhaitez en savoir plus
+          sur nos services, n'hésitez pas à
+          <a href="/contact">nous contacter</a>. Votre satisfaction est notre
+          priorité, et nous sommes là pour vous aider à chaque étape de votre
+          voyage.
         </p>
       </section>
     </main>
+
     <%- include('_footer.ejs') %>
   </body>
 </html>

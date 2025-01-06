@@ -4,44 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/auth.css" />
-    <title>Travel - Login</title>
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="css/_general.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <title>Travel - Connexion</title>
   </head>
   <body>
-    <section class="auth-section">
+    <main class="auth-section">
+      <p class="back-link">
+        <a href="/">
+          <i class="fa-solid fa-arrow-left"></i>
+          Retour
+        </a>
+      </p>
       <div class="auth-container">
         <div class="auth-header">
-          <h3>Se connecter maintenant</h3>
+          <h3>Connexion</h3>
           <p>
-            Connectez-vous à votre compte Travel.com et accédez à nos services.
+            Connectez-vous pour accéder à votre compte et profiter de nos
+            services.
           </p>
         </div>
         <form class="auth-form">
           <div class="input-container">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" required />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Entrez votre email"
+              required
+            />
           </div>
           <div class="input-container">
             <label for="password">Mot de Passe</label>
-            <input type="password" name="password" id="password" required />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Entrez votre mot de passe"
+              required
+            />
           </div>
-          <input type="submit" value="Se connecter" />
-          <p>Pas de compte? <a href="/register">S'inscrire</a></p>
+          <input type="submit" value="Se connecter" class="auth-btn" />
+          <p class="signup-prompt">
+            Pas encore inscrit? <a href="/register">Créer un compte</a>
+          </p>
         </form>
       </div>
-    </section>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
       document.querySelector("form").addEventListener("submit", (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const entries = Object.fromEntries(formData);
-        
+
         fetch("/auth/login", {
           method: "POST",
           headers: {

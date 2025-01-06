@@ -1,0 +1,46 @@
+/* --- Footer Section --- */
+footer {
+  background-color: #0c0c0c;
+  color: #ffffff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 125px;
+}
+
+.footer-content p {
+  margin: 10px 0;
+}
+/* --- Media Queries --- */
+
+/* Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 50px;
+  }
+
+  .footer-content p {
+    text-align: center;
+  }
+}
+
+/* Phone (max-width: 480px) */
+@media (max-width: 480px) {
+  .footer-content {
+    padding: 0 20px;
+  }
+
+  .footer-logo {
+    font-size: 18px; /* Adjust logo font size for smaller screens */
+  }
+
+  .footer-content p {
+    font-size: 14px; /* Adjust text size for readability */
+  }
+}
