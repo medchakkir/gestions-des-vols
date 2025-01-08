@@ -48,6 +48,9 @@
     npm start
     ```
     - Accédez à l'application via votre navigateur à l'adresse `http://localhost:3000`.
+    - Accédez à directement debut votre navigateur à l'adresse `https://gestiondevol.onrender.com`.
+    - https://gestiondevol.onrender.com
+    - Accédez à l'application  apk et logiciel .exe pour le telephone et le PC
 
 ## Règles d'équipe pour le projet *VoyageFinder*
 
