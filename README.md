@@ -63,6 +63,9 @@
     ```
 
     - Accédez à l'application via votre navigateur à l'adresse `http://localhost:8080`.
+    - Accédez à directement debut votre navigateur à l'adresse `https://gestiondevol.onrender.com`.
+    - https://gestiondevol.onrender.com
+    - Accédez à l'application  apk et logiciel .exe pour le telephone et le PC
 
 ### Membres de l'Équipe
 
