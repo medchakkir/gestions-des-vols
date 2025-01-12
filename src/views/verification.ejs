@@ -41,29 +41,54 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-      document.querySelector("form").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const entries = Object.fromEntries(formData);
+      $(document).ready(function () {
+        $("form").on("submit", function (e) {
+          e.preventDefault();
 
-        fetch("/auth/verify_otp", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(entries),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.error) {
-              Swal.fire("Erreur!", data.error, "error");
-            } else {
-              Swal.fire("Succès!", data.message, "success").then(() => {
-                window.location.href = data.redirect;
-              });
-            }
+          // Collect and convert form data into an object
+          const formData = $(this).serializeArray();
+          const entries = {};
+          formData.forEach((field) => {
+            entries[field.name] = field.value;
           });
+
+          // Show loader
+          Swal.fire({
+            title: "Vérification...",
+            text: "Veuillez patienter pendant la vérification de votre code OTP.",
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
+
+          // Perform AJAX request
+          $.ajax({
+            url: "/auth/verify_otp",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(entries),
+            success: function (data) {
+              Swal.close(); // Close the loader
+              if (data.error) {
+                Swal.fire("Erreur!", data.error, "error");
+              } else {
+                Swal.fire("Succès!", data.message, "success").then(() => {
+                  window.location.href = data.redirect;
+                });
+              }
+            },
+            error: function (xhr, status, error) {
+              Swal.close(); // Close the loader
+              const errorMessage =
+                xhr.responseJSON?.error ||
+                "Une erreur est survenue. Veuillez réessayer.";
+              Swal.fire("Erreur!", errorMessage, "error");
+            },
+          });
+        });
       });
     </script>
   </body>
