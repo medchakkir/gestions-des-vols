@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import connectPgSimple from "connect-pg-simple";
 
 // local files
 import db from "./src/config/db.js";
@@ -20,6 +21,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
+const PgSession = connectPgSimple(session);
 
 // Test de connexion à PostgreSQL
 db.connect()
@@ -37,13 +39,19 @@ app.use(express.static(path.join(process.cwd(), "public")));
 // Session middleware configuration
 app.use(
   session({
+    store: new PgSession({
+      conObject: {
+        connectionString: process.env.DB_STRING,
+      },
+      createTableIfMissing: true,
+    }),
     secret: process.env.SESSION_SECRET || "your_secret_key",
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // Set to true if using HTTPS
-      httpOnly: true, // Prevent access via JavaScript
-      maxAge: 24 * 60 * 60 * 1000, // Session expiration set to 24 hours
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
   })
 );
