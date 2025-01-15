@@ -93,7 +93,7 @@ router.post("/verify_otp", trimRequest, async (req, res) => {
     delete req.session.otpCode;
     delete req.session.otpExpires;
 
-    req.session.user = { id: user.id, name: user.name, email: user.email };
+    req.session.userId = user.id;
 
     res.status(200).json({
       message: "Votre compte a été créé et vérifié avec succès.",
@@ -134,7 +134,8 @@ router.post("/login", trimRequest, async (req, res) => {
     }
 
     // Set user ID in session
-    req.session.user = { id: user.id, name: user.name, email: user.email };
+    req.session.userId = user.id;
+
     res
       .status(200)
       .json({ message: "Utilisateur connecté avec succès", redirect: "/" });

@@ -19,6 +19,14 @@ const getUserByEmail = async (email) => {
   return result.rows[0];
 };
 
+const getUserById = async (id) => {
+  const query = `
+        SELECT * FROM users WHERE id = $1;
+    `;
+  const result = await pool.query(query, [id]);
+  return result.rows[0];
+};
+
 const updateUserPassword = async (email, newPassword) => {
   const query = `
         UPDATE users
@@ -31,4 +39,4 @@ const updateUserPassword = async (email, newPassword) => {
   return result.rows[0];
 };
 
-export { createUser, getUserByEmail, updateUserPassword };
+export { createUser, getUserByEmail, getUserById, updateUserPassword };

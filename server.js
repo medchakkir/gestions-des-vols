@@ -49,9 +49,9 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     },
   })
 );
@@ -61,22 +61,22 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 function checkSessionUserStatus(req) {
-  const userIsLoggedIn = !!req.session.user;
-  return { userIsLoggedIn, user: req.session.user };
+  const userIsLoggedIn = !!req.session.userId;
+  return userIsLoggedIn;
 }
 
 // Routes
 app.get("/", (req, res) => {
-  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
-  res.render("index", { user, userIsLoggedIn });
+  const userIsLoggedIn = checkSessionUserStatus(req);
+  res.render("index", { userIsLoggedIn });
 });
 app.get("/about", (req, res) => {
-  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
-  res.render("about", { userIsLoggedIn, user });
+  const userIsLoggedIn = checkSessionUserStatus(req);
+  res.render("about", { userIsLoggedIn });
 });
 app.get("/contact", (req, res) => {
-  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
-  res.render("contact", { userIsLoggedIn, user });
+  const userIsLoggedIn = checkSessionUserStatus(req);
+  res.render("contact", { userIsLoggedIn });
 });
 app.get("/login", (req, res) => {
   res.render("login");
@@ -98,7 +98,7 @@ app.get("/reset-password", (req, res) => {
 
 // Protected routes
 app.get("/dashboard", isAuthenticated, async (req, res) => {
-  const user = req.session.user;
+  const user = getFlightByUserId(req.session.userId);
   const userFlights = await getFlightByUserId(user.id);
   res.render("dashboard", { user, userFlights });
 });
@@ -201,8 +201,8 @@ app.use("/flight", flightRoutes);
 
 // Gestion des erreurs 404
 app.use((req, res) => {
-  const { userIsLoggedIn, user } = checkSessionUserStatus(req);
-  res.render("404", { userIsLoggedIn, user });
+  const userIsLoggedIn = checkSessionUserStatus(req);
+  res.render("404", { userIsLoggedIn });
 });
 
 // Centralized error handling middleware

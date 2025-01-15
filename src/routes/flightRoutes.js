@@ -235,7 +235,7 @@ router.post("/book", isAuthenticated, async (req, res) => {
       returnDuration: returnDuration || null,
     });
 
-    await bookFlight(req.session.user.id, flight.id);
+    await bookFlight(req.session.userId, flight.id);
 
     res.status(201).json({
       message: "Vol réservé avec succès.",
