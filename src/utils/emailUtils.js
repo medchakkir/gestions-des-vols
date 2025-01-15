@@ -61,7 +61,7 @@ const sendResetEmail = async (email, name, req) => {
     );
 
     // Generate the reset URL
-    const resetURL = `http://localhost:3000/reset-password?token=${resetToken}`;
+    const resetURL = `https://gestiondevol.onrender.com/reset-password?token=${resetToken}`;
 
     // Render the email template with user data
     const mailTemplate = await ejs.renderFile(templatePath, { name, resetURL });

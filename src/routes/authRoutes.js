@@ -166,7 +166,7 @@ router.post("/forgot-password", trimRequest, async (req, res) => {
 
   // Generate and send token
   try {
-    sendResetEmail(user.email, user.name, req);
+    await sendResetEmail(user.email, user.name, req);
   } catch (err) {
     console.error("Erreur lors de l'envoi de l'email :", err);
     return res.status(500).json({ error: "Erreur lors de l'envoi de l'email" });
