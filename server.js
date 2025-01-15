@@ -111,7 +111,7 @@ app.get("/reset-password", (req, res) => {
 
 // Protected routes
 app.get("/dashboard", isAuthenticated, async (req, res) => {
-  const user = getUserById(req.session.userId);
+  const user = await getUserById(req.session.userId);
   const userFlights = await getFlightByUserId(user.id);
   res.render("dashboard", { user, userFlights });
 });
