@@ -35,6 +35,7 @@
     const entries = Object.fromEntries(formData);
     fetch("/auth/logout", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

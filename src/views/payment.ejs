@@ -122,6 +122,7 @@
 
                 fetch("/flight/book", {
                   method: "POST",
+                  credentials: "include",
                   headers: {
                     "Content-Type": "application/json",
                   },

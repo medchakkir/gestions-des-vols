@@ -31,12 +31,19 @@ db.connect()
   );
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://gestiondevol.onrender.com/",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(process.cwd(), "public")));
 
 // Session middleware configuration
+app.set("trust proxy", 1); // Trust the first proxy for secure cookies
+
 app.use(
   session({
     store: new PgSession({
@@ -47,14 +54,19 @@ app.use(
     }),
     secret: process.env.SESSION_SECRET || "your_secret_key",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false, // Don't create sessions for unauthenticated users
     cookie: {
-      secure: true,
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     },
   })
 );
+
+app.use((req, res, next) => {
+  console.log("Session before request:", req.session);
+  next();
+});
 
 // View engine setup
 app.set("view engine", "ejs");
