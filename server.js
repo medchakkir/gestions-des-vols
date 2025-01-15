@@ -80,6 +80,14 @@ app.get("/verification", (req, res) => {
   res.render("verification");
 });
 
+app.get("/forgot-password", (req, res) => {
+  res.render("forgetPassword");
+});
+
+app.get("/reset-password", (req, res) => {
+  res.render("resetPassword");
+});
+
 // Protected routes
 app.get("/dashboard", isAuthenticated, async (req, res) => {
   const user = req.session.user;

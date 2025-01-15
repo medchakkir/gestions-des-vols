@@ -19,4 +19,16 @@ const getUserByEmail = async (email) => {
   return result.rows[0];
 };
 
-export { createUser, getUserByEmail };
+const updateUserPassword = async (email, newPassword) => {
+  const query = `
+        UPDATE users
+        SET password = $1
+        WHERE email = $2
+        RETURNING id, name, email, password;
+    `;
+  const values = [newPassword, email];
+  const result = await pool.query(query, values);
+  return result.rows[0];
+};
+
+export { createUser, getUserByEmail, updateUserPassword };
