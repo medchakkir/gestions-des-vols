@@ -14,6 +14,7 @@ import userRoutes from "./src/routes/userRoutes.js";
 import authRoutes from "./src/routes/authRoutes.js";
 import { isAuthenticated } from "./src/middlewares/authMiddleware.js";
 import { getFlightByUserId } from "./src/models/flightModal.js";
+import { getUserById } from "./src/models/userModal.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -110,7 +111,7 @@ app.get("/reset-password", (req, res) => {
 
 // Protected routes
 app.get("/dashboard", isAuthenticated, async (req, res) => {
-  const user = getFlightByUserId(req.session.userId);
+  const user = getUserById(req.session.userId);
   const userFlights = await getFlightByUserId(user.id);
   res.render("dashboard", { user, userFlights });
 });
