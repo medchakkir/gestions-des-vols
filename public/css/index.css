@@ -32,7 +32,7 @@
 .banner-content a {
   display: inline-block;
   background-color: #ffffff;
-  color: #003b95;
+  color:#141955;
   font-weight: 600;
   padding: 10px;
   border-radius: 5px;
@@ -90,7 +90,7 @@
 .popular-destinations h2 {
   font-size: 2.5rem;
   margin-bottom: 30px;
-  color: #003b95;
+  color: #141955;
 }
 
 .destinations-grid {
@@ -116,7 +116,7 @@
 .destination-item h3 {
   font-size: 1.5rem;
   margin: 15px 0;
-  color: #003b95;
+  color: #141955;
 }
 
 .destination-item p {
@@ -135,7 +135,7 @@
 .why-choose-us h2 {
   font-size: 2.5rem;
   margin-bottom: 30px;
-  color: #003b95;
+  color: #141955;
 }
 
 .features {
@@ -163,7 +163,7 @@
 .feature h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #003b95;
+  color: #141955;
 }
 
 .feature p {
@@ -175,7 +175,7 @@
 .customer-reviews {
   padding: 50px 20px;
   text-align: center;
-  background: #003b95;
+  background: #141955;
   color: #ffffff;
 }
 
@@ -198,7 +198,7 @@
   background: #ffffff;
   color: #333333;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px #141955;
   text-align: center;
 
   display: flex;
@@ -214,5 +214,5 @@
 .review h4 {
   margin-top: 15px;
   font-size: 1rem;
-  color: #003b95;
+  color: #141955;
 }
