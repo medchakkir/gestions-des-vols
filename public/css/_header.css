@@ -1,7 +1,7 @@
 /* Global styles */
 header {
   color: #ffffff;
-  background-color:#141955;
+  background-color:#003b95;
 }
 
 .navbar {
@@ -71,7 +71,7 @@ header {
 .auth-btn,
 .submit-btn {
   background-color: #ffffff;
-  color: #141955;
+  color: #003b95;
   padding: 6px 9px;
   border: none;
   border-radius: 4px;
@@ -99,7 +99,7 @@ header {
     display: none;
     flex-direction: column;
     width: 100%;
-    background-color: #141955;
+    background-color: #003b95;
     border-radius: 4px;
     overflow: hidden;
     text-align: center;
@@ -121,7 +121,7 @@ header {
     text-align: center;
     color: #ffffff;
     font-size: 18px;
-    background-color: #141955;
+    background-color: #003b95;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     transition: background-color 0.3s ease;
   }
@@ -140,7 +140,7 @@ header {
     padding: 12px 0;
     font-size: 16px;
     background-color: #ffffff;
-    color: #141955;
+    color: #003b95;
     border-radius: 0;
     font-weight: bold;
     transition: background-color 0.3s ease, color 0.3s ease;
