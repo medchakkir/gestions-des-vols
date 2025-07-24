@@ -1,8 +1,8 @@
-# VoyageFinder: Réservation de Vols en Ligne ✈️
+# Travel.com: Réservation de Vols en Ligne ✈️
 
 ## Introduction
 
-**VoyageFinder** vous invite à explorer le monde en toute simplicité, votre allié idéal pour dénicher les meilleures offres de vols en un clin d'œil ! Grâce à notre plateforme intuitive, réservez facilement votre prochain vol tout en profitant de recommandations personnalisées et d'une interface épurée. Notre mission est de simplifier le processus de réservation de billets d'avion, rendant chaque étape accessible et agréable pour tous, que vous soyez un globe-trotteur expérimenté ou un voyageur occasionnel. Découvrez dès maintenant **VoyageFinder** et laissez-nous vous aider à réaliser vos rêves de voyage !
+**Travel.com** vous invite à explorer le monde en toute simplicité, votre allié idéal pour dénicher les meilleures offres de vols en un clin d'œil ! Grâce à notre plateforme intuitive, réservez facilement votre prochain vol tout en profitant de recommandations personnalisées et d'une interface épurée. Notre mission est de simplifier le processus de réservation de billets d'avion, rendant chaque étape accessible et agréable pour tous, que vous soyez un globe-trotteur expérimenté ou un voyageur occasionnel. Découvrez dès maintenant **Travel.com** et laissez-nous vous aider à réaliser vos rêves de voyage !
 
 ## Fonctionnalités du site
 
@@ -32,13 +32,13 @@
 2. **Cloner le dépôt** :
 
     ```sh
-    git clone https://github.com/momed-ali01/GestionDeVol_test.git 
+    git clone https://github.com/momed-ali01/gestion-des-vols.git 
     ```
 
 3. **Installer les dépendances** :
 
     ```sh
-    cd GestionDeVol_test
+    cd gestion-des-vols
     npm install
     ```
 
