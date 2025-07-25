@@ -1,33 +1,39 @@
 {
-  "name": "gestiondevol_test",
+  "name": "travel-com-monorepo",
   "version": "1.0.0",
-  "description": "Système de réservation de billets d'avion avec gestion de profil utilisateur.",
-  "main": "server.js",
-  "type": "module",
+  "description": "Travel.com - Flight booking application with React frontend and Express.js backend",
+  "private": true,
   "scripts": {
-    "test": "npx jest",
-    "dev": "nodemon server.js",
-    "start": "node server.js",
-    "init-db": "node ./src/config/initDb.js"
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm install",
+    "start": "cd backend && npm start",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "clean": "rm -rf node_modules backend/node_modules frontend/node_modules frontend/dist"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@vercel/postgres": "^0.10.0",
-    "amadeus": "^11.0.0",
-    "axios": "^1.7.8",
-    "bcrypt": "^5.1.1",
-    "connect-pg-simple": "^10.0.0",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
-    "express-session": "^1.18.1",
-    "nodemailer": "^6.9.16",
-    "uuid": "^11.0.5"
-  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "devDependencies": {
-    "nodemon": "^3.1.7"
-  }
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "travel",
+    "flight-booking",
+    "react",
+    "express",
+    "nodejs",
+    "postgresql"
+  ],
+  "author": "Travel.com Team",
+  "license": "MIT"
 }
+
