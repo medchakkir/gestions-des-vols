@@ -1,0 +1,33 @@
+{
+  "name": "gestiondevol_test",
+  "version": "1.0.0",
+  "description": "Système de réservation de billets d'avion avec gestion de profil utilisateur.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "npx jest",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "init-db": "node ./src/config/initDb.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0",
+    "amadeus": "^11.0.0",
+    "axios": "^1.7.8",
+    "bcrypt": "^5.1.1",
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "nodemailer": "^6.9.16",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
